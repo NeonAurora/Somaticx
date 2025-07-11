@@ -185,6 +185,13 @@ export const themes = {
       textActive: designTokens.primary[600],
       textHover: designTokens.neutral[900],
     },
+    accent: {
+      primary: designTokens.accent[600],
+      light: designTokens.accent[400],
+      dark: designTokens.accent[700],
+      background: designTokens.accent[50],
+      foreground: designTokens.accent[100],
+    },
     tokens: designTokens,
   },
   dark: {
@@ -260,6 +267,13 @@ export const themes = {
       textActive: designTokens.primary[400],
       textHover: designTokens.neutral[0],
     },
+    accent: {
+      primary: designTokens.accent[500],
+      light: designTokens.accent[300],
+      dark: designTokens.accent[700],
+      background: designTokens.accent[100],
+      foreground: designTokens.accent[200],
+    },
     tokens: designTokens,
   }
 };
@@ -274,6 +288,7 @@ export const colorCategories = {
   interactive: Object.keys(themes.light.interactive),
   status: Object.keys(themes.light.status),
   navigation: Object.keys(themes.light.navigation),
+  accent: Object.keys(themes.light.accent),
 };
 
 export default themes;

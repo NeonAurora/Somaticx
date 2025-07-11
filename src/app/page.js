@@ -1,12 +1,12 @@
 'use client';
 
-import HeroSection from '@/components/HeroSection';
-import WhyUs from '@/components/WhyUs';
-import StatsBar from '@/components/StatsBar';
-import ProductDemoCarousel from '@/components/ProductDemoCarousel';
-import NewsroomTicker from '@/components/NewsroomTicker';
-import SupportOverview from '@/components/SupportOverview';
-import SocialRow from '@/components/SocialRow';
+import HeroSection from '@/components/Home/HeroSection/HeroSection';
+import WhyUs from '@/components/Home/WhyUs/WhyUs';
+import StatsBar from '@/components/Home/StatsBar/StatsBar';
+import ProductDemoCarousel from '@/components/Home/ProductDemoCarousel/ProductDemoCarousel';
+import NewsroomTicker from '@/components/Home/NewsRoomTicker/NewsRoomTicker';
+import SupportOverview from '@/components/Home/SupportOverview/SupportOverview';
+import SocialRow from '@/components/Home/SocialRow/SocialRow';
 
 
 export default function HomePage() {
