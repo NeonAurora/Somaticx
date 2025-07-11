@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NewsCard from '../NewsCard/NewsCard';
-import NewsModal from '../NewsModal/NewsModal';
+import NewsCard from './NewsCard';
+import NewsModal from './NewsModal';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 

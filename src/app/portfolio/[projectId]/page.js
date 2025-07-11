@@ -1,7 +1,7 @@
 'use client';
 
 import { use } from 'react';
-import Layout from '@/components/common/Layout/Layout';
+import Layout from '@/components/common/Layout';
 import { projects } from '@/data/projects';
 import { notFound } from 'next/navigation';
 

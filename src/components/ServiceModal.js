@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import ServiceCard from '../ServiceCard/ServiceCard';
+import ServiceCard from '../../ServiceCard';
 import ServiceModal from '../ServiceModal/ServiceModal';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';

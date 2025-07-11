@@ -2,9 +2,9 @@
 'use client';
 
 import { useState } from 'react';
-import Layout from '@/components/common/Layout/Layout';
-import PortfolioHero from '@/components/Portfolio/PortfolioHero/PortfolioHero';
-import ProjectFilter from '@/components/Portfolio/ProjectFilter/ProjectFilter';
+import Layout from '@/components/common/Layout';
+import PortfolioHero from '@/components/PortfolioHero';
+import ProjectFilter from '@/components/ProjectFilter';
 import ProjectGrid from '@/components/Portfolio/ProjectGrid/ProjectGrid';
 import { projectCategories, projects } from '@/data/projects';
 

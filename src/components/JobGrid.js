@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import JobCard from '../JobCard/JobCard';
-import JobModal from '../JobModal/JobModal';
+import JobCard from './JobCard';
+import JobModal from './JobModal';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 

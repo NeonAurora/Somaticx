@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import DemoCard from '../DemoCard/DemoCard';
-import DemoModal from '../DemoModal/DemoModal';
+import ProjectCard from '../../ProjectCard';
+import ProjectModal from '../ProjectModal/ProjectModal';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 
-export default function DemoGrid({ demos, activeCategory }) {
-  const [selectedDemo, setSelectedDemo] = useState(null);
+export default function ProjectGrid({ projects, activeCategory }) {
+  const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   const themeColors = useThemeColors({
@@ -16,18 +16,18 @@ export default function DemoGrid({ demos, activeCategory }) {
     textSecondary: 'text.secondary',
   });
 
-  const filteredDemos = activeCategory === 'all' 
-    ? demos 
-    : demos.filter(demo => demo.category.id === activeCategory);
+  const filteredProjects = activeCategory === 'all' 
+    ? projects 
+    : projects.filter(project => project.category.id === activeCategory);
 
-  const handleDemoClick = (demo) => {
-    setSelectedDemo(demo);
+  const handleProjectClick = (project) => {
+    setSelectedProject(project);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setTimeout(() => setSelectedDemo(null), 300);
+    setTimeout(() => setSelectedProject(null), 300);
   };
 
   return (
@@ -36,20 +36,20 @@ export default function DemoGrid({ demos, activeCategory }) {
       style={{ backgroundColor: themeColors.background }}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {filteredDemos.length === 0 ? (
+        {filteredProjects.length === 0 ? (
           <div className="text-center py-16">
-            <div className="text-6xl mb-4">🎥</div>
+            <div className="text-6xl mb-4">🔍</div>
             <h3 
               className="text-2xl font-semibold mb-4"
               style={{ color: themeColors.text }}
             >
-              No Demos Found
+              No Projects Found
             </h3>
             <p 
               className="text-lg"
               style={{ color: themeColors.textSecondary }}
             >
-              Try selecting a different category to see more tutorials.
+              Try selecting a different category to see more projects.
             </p>
           </div>
         ) : (
@@ -59,31 +59,31 @@ export default function DemoGrid({ demos, activeCategory }) {
                 className="text-3xl font-bold mb-4"
                 style={{ color: themeColors.text }}
               >
-                {activeCategory === 'all' ? 'All Tutorials' : `${filteredDemos[0]?.category.name} Tutorials`}
+                {activeCategory === 'all' ? 'All Projects' : `${filteredProjects[0]?.category.name} Projects`}
               </h2>
               <p 
                 className="text-lg"
                 style={{ color: themeColors.textSecondary }}
               >
-                Showing {filteredDemos.length} tutorial{filteredDemos.length !== 1 ? 's' : ''}
+                Showing {filteredProjects.length} project{filteredProjects.length !== 1 ? 's' : ''}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredDemos.map((demo) => (
-                <DemoCard
-                  key={demo.id}
-                  demo={demo}
-                  onClick={handleDemoClick}
+              {filteredProjects.map((project) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  onClick={handleProjectClick}
                 />
               ))}
             </div>
           </>
         )}
 
-        {selectedDemo && (
-          <DemoModal
-            demo={selectedDemo}
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
             isOpen={isModalOpen}
             onClose={handleCloseModal}
           />

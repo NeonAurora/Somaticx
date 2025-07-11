@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import Layout from '@/components/common/Layout/Layout';
-import NewsroomHero from '@/components/Newsroom/NewsroomHero/NewsroomHero';
-import NewsFilter from '@/components/Newsroom/NewsFilter/NewsFilter';
-import NewsGrid from '@/components/Newsroom/NewsGrid/NewsGrid';
-import NewsletterSignup from '@/components/Newsroom/NewsletterSignup/NewsletterSignup';
+import Layout from '@/components/common/Layout';
+import NewsroomHero from '@/components/NewsroomHero';
+import NewsFilter from '@/components/NewsFilter';
+import NewsGrid from '@/components/NewsGrid';
+import NewsletterSignup from '@/components/NewsletterSignup';
 import { newsCategories, newsArticles } from '@/data/newsRoom';
 
 export default function NewsroomPage() {

@@ -2,11 +2,11 @@
 'use client';
 
 import { useState } from 'react';
-import Layout from '@/components/common/Layout/Layout';
-import CareersHero from '@/components/Careers/CareersHero/CareersHero';
-import JobGrid from '@/components/Careers/JobGrid/JobGrid';
-import ApplicationProcess from '@/components/Careers/ApplicationProcess/ApplicationProcess';
-import CompanyCulture from '@/components/Careers/CompanyCulture/CompanyCulture';
+import Layout from '@/components/common/Layout';
+import CareersHero from '@/components/CareersHero';
+import JobGrid from '@/components/JobGrid';
+import ApplicationProcess from '@/components/ApplicationProcess';
+import CompanyCulture from '@/components/CompanyCulture';
 import { jobOpenings } from '@/data/careers';
 
 export default function CareersPage() {

@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import Layout from '@/components/common/Layout/Layout';
-import DemoHero from '@/components/Demo/DemoHero/DemoHero';
-import DemoFilter from '@/components/Demo/DemoFilter/DemoFilter';
+import Layout from '@/components/common/Layout';
+import DemoHero from '@/components/DemoHero';
+import DemoFilter from '@/components/DemoFilter';
 import DemoGrid from '@/components/Demo/DemoGrid/DemoGrid';
-import LiveDemoSection from '@/components/Demo/LiveDemoSection/LiveDemoSection';
+import LiveDemoSection from '@/components/LiveDemoSection';
 import { demoCategories, demos } from '@/data/demos';
 
 export default function DemoPage() {
