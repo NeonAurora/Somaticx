@@ -1,26 +1,53 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* CSS Custom Properties will be set by JavaScript */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Default values (will be overridden by theme system) */
+  --color-background-primary: #ffffff;
+  --color-text-primary: #000000;
+  --color-brand-primary: #16a34a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Base styles using theme colors */
+body {
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Utility classes for theme colors */
+@layer utilities {
+  .bg-theme-primary { 
+    background-color: var(--color-background-primary); 
+  }
+  .bg-theme-secondary { 
+    background-color: var(--color-background-secondary); 
+  }
+  .text-theme-primary { 
+    color: var(--color-text-primary); 
+  }
+  .text-theme-secondary { 
+    color: var(--color-text-secondary); 
+  }
+  .border-theme-primary { 
+    border-color: var(--color-border-primary); 
+  }
+  
+  /* Brand utilities */
+  .bg-brand-primary {
+    background-color: var(--color-brand-primary);
+  }
+  .text-brand-primary {
+    color: var(--color-brand-primary);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Smooth transitions for theme switching */
+* {
+  transition: background-color 0.2s ease, 
+              border-color 0.2s ease, 
+              color 0.2s ease,
+              box-shadow 0.2s ease;
 }
