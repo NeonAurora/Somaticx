@@ -271,7 +271,7 @@ export default function SupportCategories() {
                     fontSize: { xs: '1.75rem', sm: '2.125rem' }
                   }}
                 >
-                  Can't Find What You're Looking For?
+                  {"Can't Find What You're Looking For?"}
                 </Typography>
                 
                 <Typography

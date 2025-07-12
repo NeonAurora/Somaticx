@@ -404,8 +404,10 @@ export default function DemoHero() {
                     mx: 'auto'
                   }}
                 >
-                  "Smart Farm Management Dashboard" - Learn how to monitor your entire operation 
-                  from a single, intuitive interface with real-time data and automated insights.
+                  <Typography>
+                    {"\"Smart Farm Management Dashboard\" - Learn how to monitor your entire operation from a single, intuitive interface with real-time data and automated insights."}
+                  </Typography>
+
                 </Typography>
 
                 <Stack 

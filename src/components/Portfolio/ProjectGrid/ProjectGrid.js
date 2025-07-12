@@ -115,8 +115,7 @@ const EmptyState = ({ activeCategory, onCategoryChange }) => {
             mb: 4
           }}
         >
-          We couldn't find any projects in this category. 
-          Try exploring other categories or view all projects.
+          {"We couldn't find any projects in this category. Try exploring other categories or view all projects."}
         </Typography>
 
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">

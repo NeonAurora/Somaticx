@@ -589,7 +589,7 @@ export default function PortfolioHero() {
                 mb: 2
               }}
             >
-              Let's Build Something Amazing Together
+              {"Let's Build Something Amazing Together"}
             </Typography>
             
             <Typography

@@ -686,7 +686,7 @@ export default function ContactSupport() {
                     lineHeight: 1.6
                   }}
                 >
-                  Thank you for contacting us. We'll get back to you within 2 hours during business hours.
+                  {"Thank you for contacting us. We'll get back to you within 2 hours during business hours."}
                 </Typography>
 
                 <Chip

@@ -386,7 +386,8 @@ export default function AboutHero() {
     {
       icon: Nature,
       title: 'Sustainable Future',
-      description: 'Building environmentally conscious solutions for tomorrow\'s agricultural and livestock challenges.',
+      description: "Building environmentally conscious solutions for tomorrow's agricultural and livestock challenges."
+,
       color: '#8B5CF6'
     }
   ];
@@ -504,9 +505,7 @@ export default function AboutHero() {
                 mx: 'auto'
               }}
             >
-              We're a startup dedicated to revolutionizing agriculture and livestock industries through 
-              innovative software and hardware solutions. Our mission is to create intelligent systems 
-              that enhance productivity, sustainability, and animal welfare across bio-industries.
+              {"We're a startup dedicated to revolutionizing agriculture and livestock industries through innovative software and hardware solutions. Our mission is to create intelligent systems that enhance productivity, sustainability, and animal welfare across bio-industries."}
             </Typography>
           </motion.div>
 

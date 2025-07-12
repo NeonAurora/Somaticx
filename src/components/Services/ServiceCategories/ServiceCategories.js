@@ -303,8 +303,7 @@ export default function ServiceCategories({ services }) {
                   mx: 'auto'
                 }}
               >
-                Let's discuss how our comprehensive solutions can address your specific needs 
-                and drive innovation in your industry.
+                {"Let's discuss how our comprehensive solutions can address your specific needs and drive innovation in your industry."}
               </Typography>
 
               <Stack 

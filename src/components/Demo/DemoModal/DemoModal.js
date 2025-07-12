@@ -233,7 +233,7 @@ export default function DemoModal({ demo, isOpen, onClose }) {
                       }}
                     >
                       <CheckCircle sx={{ color: demo.category?.color || themeColors.brand }} />
-                      What You'll Learn
+                      {"What You'll Learn"}
                     </Typography>
                     
                     <Grid container spacing={2}>

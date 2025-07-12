@@ -498,7 +498,7 @@ const FloatingTestimonial = () => {
               </Box>
               
               <Typography variant="body2" sx={{ color: themeColors.text, fontStyle: 'italic' }}>
-                "Somaticx transformed our farm operations with 40% efficiency gains in just 6 months!"
+                {"\"Somaticx transformed our farm operations with 40% efficiency gains in just 6 months!\" "}
               </Typography>
               
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
