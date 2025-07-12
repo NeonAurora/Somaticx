@@ -1,4 +1,5 @@
 import { ThemeProvider } from '@/context/ThemeContext';
+import MaterialUIProvider from '@/components/providers/MuiThemeProvider';
 import './globals.css';
 
 export const metadata = {
@@ -14,7 +15,9 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ThemeProvider>
-          {children}
+          <MaterialUIProvider>
+            {children}
+          </MaterialUIProvider>
         </ThemeProvider>
       </body>
     </html>

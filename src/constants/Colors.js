@@ -11,6 +11,7 @@ export const designTokens = {
     700: "#15803d",
     800: "#166534",
     900: "#14532d",
+    1000: "#0f3e22",
   },
   
   secondary: {
@@ -218,6 +219,8 @@ export const themes = {
       secondaryLight: designTokens.secondary[400],
       secondaryDark: designTokens.secondary[600],
       accent: designTokens.accent[500],
+      flipPrimary: designTokens.primary[900],
+      flipPrimaryDark: designTokens.primary[1000],
     },
     surface: {
       primary: designTokens.neutral[800],
