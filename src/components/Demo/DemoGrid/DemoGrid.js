@@ -179,7 +179,7 @@ export default function DemoGrid({ demos, activeCategory }) {
     // Calculate responsive line distance based on container width and card size
     const cardWidth = '400px';
     const timelineOffset = '80px'; // Half of the gap between cards and center line
-    const lineDistance = `calc((50% - ${timelineOffset}) - (${cardWidth} / 2))`;
+    const lineDistance = `calc((50% - ${timelineOffset}) - (${cardWidth}) / 1.25)`;
     
     return (
       <Box
