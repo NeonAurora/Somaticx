@@ -1,9 +1,21 @@
 'use client';
 
 import { use } from 'react';
+import dynamic from 'next/dynamic';
 import Layout from '@/components/common/Layout/Layout';
+import ClientOnly from '@/components/common/ClientOnly/ClientOnly';
 import { projects } from '@/data/projects';
 import { notFound } from 'next/navigation';
+import ProjectDetailHero from '@/components/Portfolio/ProjectDetailHero/ProjectDetailHero';
+import ProjectDetailContent from '@/components/Portfolio/ProjectDetailContent/ProjectDetailContent';
+
+// Dynamic imports for animation-heavy components
+const ProjectDetailHero = dynamic(() => import('@/components/Portfolio/ProjectDetailHero/ProjectDetailHero'), {
+  ssr: false,
+  loading: () => <div style={{ height: '100vh', background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)' }} />
+});
+
+const ProjectDetailContent = dynamic(() => import('@/components/Portfolio/ProjectDetailContent/ProjectDetailContent'), { ssr: false });
 
 export default function ProjectDetailPage({ params }) {
   const { projectId } = use(params);
@@ -14,14 +26,16 @@ export default function ProjectDetailPage({ params }) {
   }
 
   return (
-    <Layout>
-      <div className="min-h-screen py-20">
-        <div className="max-w-4xl mx-auto px-6">
-          {/* This will be a dedicated project detail page if needed */}
-          <h1 className="text-4xl font-bold mb-6">{project.title}</h1>
-          <p className="text-lg text-gray-600">{project.fullDescription}</p>
-        </div>
-      </div>
-    </Layout>
+    <main className="min-h-screen">
+      <Layout>
+        <ClientOnly fallback={<div style={{ height: '100vh' }} />}>
+          <ProjectDetailHero project={project} />
+        </ClientOnly>
+        
+        <ClientOnly>
+          <ProjectDetailContent project={project} />
+        </ClientOnly>
+      </Layout>
+    </main>
   );
 }

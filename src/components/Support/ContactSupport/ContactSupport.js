@@ -3,6 +3,40 @@
 import { useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors, useInteractiveColors } from '@/hooks/useThemeColor';
+import { motion } from 'framer-motion';
+import { 
+  Box,
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  Stack,
+  Grid,
+  Avatar,
+  Chip,
+  Button,
+  TextField,
+  MenuItem,
+  Alert,
+  Divider,
+  Paper
+} from '@mui/material';
+import { 
+  Chat,
+  Phone,
+  Email,
+  VideoCall,
+  Send,
+  CheckCircle,
+  ContactSupport as ContactSupportIcon,
+  AccessTime,
+  Business,
+  Subject,
+  Message,
+  PriorityHigh,
+  Category,
+  AutoAwesome
+} from '@mui/icons-material';
 
 export default function ContactSupport() {
   const [formData, setFormData] = useState({
@@ -46,349 +80,699 @@ export default function ContactSupport() {
     {
       title: 'Live Chat',
       description: 'Chat with our support team in real-time',
-      icon: '💬',
+      icon: Chat,
       availability: 'Available 24/7',
       action: 'Start Chat',
-      color: colors.status.success
+      color: '#10B981' // Success green
     },
     {
       title: 'Phone Support',
       description: 'Speak directly with a technical expert',
-      icon: '📞',
+      icon: Phone,
       availability: 'Mon-Fri, 6AM-8PM PST',
       action: 'Call Now',
-      color: colors.status.info
+      color: '#3B82F6' // Info blue
     },
     {
       title: 'Email Support',
       description: 'Send detailed questions via email',
-      icon: '📧',
+      icon: Email,
       availability: 'Response within 2 hours',
       action: 'Send Email',
-      color: colors.status.warning
+      color: '#F59E0B' // Warning amber
     },
     {
       title: 'Video Call',
       description: 'Screen sharing and guided troubleshooting',
-      icon: '📹',
+      icon: VideoCall,
       availability: 'By appointment',
       action: 'Schedule Call',
-      color: colors.brand.primary
+      color: themeColors.brand
     }
   ];
 
-  return (
-    <section 
-      className="py-20"
-      style={{ backgroundColor: themeColors.background }}
-      id="contact-support"
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 
-            className="text-4xl lg:text-5xl font-bold mb-4"
-            style={{ color: themeColors.text }}
-          >
-            Contact Support
-          </h2>
-          <p 
-            className="text-xl"
-            style={{ color: themeColors.textSecondary }}
-          >
-            Choose the best way to get help
-          </p>
-        </div>
+  const priorityOptions = [
+    { value: 'low', label: 'Low', color: '#6B7280' },
+    { value: 'medium', label: 'Medium', color: '#F59E0B' },
+    { value: 'high', label: 'High', color: '#EF4444' },
+    { value: 'urgent', label: 'Urgent', color: '#DC2626' }
+  ];
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Methods */}
-          <div>
-            <h3 
-              className="text-2xl font-bold mb-8"
-              style={{ color: themeColors.text }}
-            >
-              Get Immediate Help
-            </h3>
-            
-            <div className="space-y-6">
-              {contactMethods.map((method, index) => (
-                <div
-                  key={index}
-                  className="p-6 rounded-xl hover:shadow-lg transition-shadow duration-300"
-                  style={{ backgroundColor: themeColors.surface }}
+  const categoryOptions = [
+    { value: 'general', label: 'General Question' },
+    { value: 'technical', label: 'Technical Issue' },
+    { value: 'billing', label: 'Billing & Account' },
+    { value: 'hardware', label: 'Hardware Support' },
+    { value: 'integration', label: 'Integration Help' },
+    { value: 'feature', label: 'Feature Request' }
+  ];
+
+  const SectionHeader = () => {
+    return (
+      <Box sx={{ textAlign: 'center', mb: 8 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <Chip
+            label="Contact Support"
+            icon={<ContactSupportIcon />}
+            sx={{
+              background: `${themeColors.brand}20`,
+              color: themeColors.brand,
+              fontWeight: 600,
+              fontSize: '0.875rem',
+              mb: 4,
+              border: `1px solid ${themeColors.brand}30`,
+              py: 2,
+              px: 1
+            }}
+          />
+
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '2.5rem', sm: '3.5rem', lg: '4rem' },
+              fontWeight: 800,
+              lineHeight: 1.1,
+              mb: 3,
+              background: `linear-gradient(135deg, ${themeColors.text}, ${themeColors.brand})`,
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}
+          >
+            Get Expert Support
+          </Typography>
+
+          <Typography
+            variant="h5"
+            sx={{
+              color: themeColors.textSecondary,
+              fontSize: { xs: '1.125rem', sm: '1.25rem' },
+              lineHeight: 1.6,
+              maxWidth: '600px',
+              mx: 'auto'
+            }}
+          >
+            Choose the best way to connect with our support team
+          </Typography>
+        </motion.div>
+      </Box>
+    );
+  };
+
+  const ContactMethodCard = ({ method, index }) => {
+    const IconComponent = method.icon;
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: index * 0.1 }}
+        whileHover={{ y: -8, scale: 1.02 }}
+      >
+        <Card
+          sx={{
+            background: 'rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            borderRadius: 4,
+            p: 3,
+            height: '100%',
+            position: 'relative',
+            overflow: 'hidden',
+            cursor: 'pointer',
+            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            '&:hover': {
+              background: 'rgba(255, 255, 255, 0.12)',
+              border: `2px solid ${method.color}40`,
+              boxShadow: `0 20px 60px rgba(0, 0, 0, 0.2), 0 8px 32px ${method.color}15`
+            },
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '4px',
+              background: `linear-gradient(90deg, ${method.color}, ${method.color}80)`
+            }
+          }}
+        >
+          <CardContent sx={{ p: 0 }}>
+            <Stack direction="row" spacing={3}>
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Avatar
+                  sx={{
+                    width: 64,
+                    height: 64,
+                    background: `linear-gradient(135deg, ${method.color}20, ${method.color}40)`,
+                    border: `3px solid ${method.color}30`
+                  }}
                 >
-                  <div className="flex items-start space-x-4">
-                    <div 
-                      className="w-12 h-12 rounded-lg flex items-center justify-center text-xl flex-shrink-0"
-                      style={{ backgroundColor: `${method.color}20` }}
-                    >
-                      {method.icon}
-                    </div>
-                    <div className="flex-1">
-                      <h4 
-                        className="text-lg font-semibold mb-2"
-                        style={{ color: themeColors.text }}
-                      >
-                        {method.title}
-                      </h4>
-                      <p 
-                        className="text-sm mb-3"
-                        style={{ color: themeColors.textSecondary }}
-                      >
-                        {method.description}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span 
-                          className="text-xs"
-                          style={{ color: method.color }}
-                        >
-                          {method.availability}
-                        </span>
-                        <button
-                          className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-300"
-                          style={{
-                            backgroundColor: `${method.color}20`,
-                            color: method.color,
-                          }}
-                          onMouseEnter={(e) => {
-                            e.target.style.backgroundColor = method.color;
-                            e.target.style.color = colors.text.inverse;
-                          }}
-                          onMouseLeave={(e) => {
-                            e.target.style.backgroundColor = `${method.color}20`;
-                            e.target.style.color = method.color;
-                          }}
-                        >
-                          {method.action}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+                  <IconComponent sx={{ fontSize: '1.75rem', color: method.color }} />
+                </Avatar>
+              </motion.div>
 
-          {/* Contact Form */}
-          <div>
-            <h3 
-              className="text-2xl font-bold mb-8"
-              style={{ color: themeColors.text }}
-            >
-              Submit a Support Request
-            </h3>
+              <Box sx={{ flex: 1 }}>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    color: themeColors.text,
+                    fontWeight: 700,
+                    mb: 1,
+                    fontSize: '1.25rem'
+                  }}
+                >
+                  {method.title}
+                </Typography>
 
-            {!isSubmitted ? (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label 
-                      className="block text-sm font-medium mb-2"
-                      style={{ color: themeColors.text }}
-                    >
-                      Name *
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
-                      style={{
-                        backgroundColor: colors.background.primary,
-                        borderColor: colors.border.primary,
-                        color: themeColors.text,
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <label 
-                      className="block text-sm font-medium mb-2"
-                      style={{ color: themeColors.text }}
-                    >
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
-                      style={{
-                        backgroundColor: colors.background.primary,
-                        borderColor: colors.border.primary,
-                        color: themeColors.text,
-                      }}
-                    />
-                  </div>
-                </div>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: themeColors.textSecondary,
+                    mb: 2,
+                    lineHeight: 1.6
+                  }}
+                >
+                  {method.description}
+                </Typography>
 
-                <div>
-                  <label 
-                    className="block text-sm font-medium mb-2"
-                    style={{ color: themeColors.text }}
+                <Stack direction="row" justifyContent="space-between" alignItems="center">
+                  <Chip
+                    icon={<AccessTime sx={{ fontSize: 16 }} />}
+                    label={method.availability}
+                    size="small"
+                    sx={{
+                      background: `${method.color}15`,
+                      color: method.color,
+                      fontWeight: 500,
+                      fontSize: '0.75rem'
+                    }}
+                  />
+
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    sx={{
+                      borderColor: `${method.color}60`,
+                      color: method.color,
+                      fontWeight: 600,
+                      fontSize: '0.875rem',
+                      textTransform: 'none',
+                      '&:hover': {
+                        borderColor: method.color,
+                        background: `${method.color}10`
+                      }
+                    }}
                   >
-                    Company/Farm Name
-                  </label>
-                  <input
-                    type="text"
+                    {method.action}
+                  </Button>
+                </Stack>
+              </Box>
+            </Stack>
+          </CardContent>
+        </Card>
+      </motion.div>
+    );
+  };
+
+  const ContactForm = () => {
+    const selectedPriority = priorityOptions.find(p => p.value === formData.priority);
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.2 }}
+      >
+        <Paper
+          sx={{
+            background: 'rgba(255, 255, 255, 0.08)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            borderRadius: 4,
+            p: 4,
+            position: 'relative',
+            overflow: 'hidden',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '4px',
+              background: `linear-gradient(90deg, ${themeColors.brand}, ${themeColors.brand}80)`
+            }
+          }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              color: themeColors.text,
+              fontWeight: 700,
+              mb: 4,
+              fontSize: { xs: '1.5rem', sm: '1.75rem' }
+            }}
+          >
+            Submit a Support Request
+          </Typography>
+
+          {!isSubmitted ? (
+            <Box component="form" onSubmit={handleSubmit}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="Name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        '& fieldset': {
+                          borderColor: 'rgba(255, 255, 255, 0.2)'
+                        },
+                        '&:hover fieldset': {
+                          borderColor: `${themeColors.brand}60`
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: themeColors.brand
+                        }
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: themeColors.textSecondary
+                      },
+                      '& .MuiInputBase-input': {
+                        color: themeColors.text
+                      }
+                    }}
+                  />
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="Email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        '& fieldset': {
+                          borderColor: 'rgba(255, 255, 255, 0.2)'
+                        },
+                        '&:hover fieldset': {
+                          borderColor: `${themeColors.brand}60`
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: themeColors.brand
+                        }
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: themeColors.textSecondary
+                      },
+                      '& .MuiInputBase-input': {
+                        color: themeColors.text
+                      }
+                    }}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="Company/Farm Name"
                     name="company"
                     value={formData.company}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
-                    style={{
-                      backgroundColor: colors.background.primary,
-                      borderColor: colors.border.primary,
-                      color: themeColors.text,
+                    variant="outlined"
+                    InputProps={{
+                      startAdornment: <Business sx={{ color: themeColors.textSecondary, mr: 1 }} />
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        '& fieldset': {
+                          borderColor: 'rgba(255, 255, 255, 0.2)'
+                        },
+                        '&:hover fieldset': {
+                          borderColor: `${themeColors.brand}60`
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: themeColors.brand
+                        }
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: themeColors.textSecondary
+                      },
+                      '& .MuiInputBase-input': {
+                        color: themeColors.text
+                      }
                     }}
                   />
-                </div>
+                </Grid>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label 
-                      className="block text-sm font-medium mb-2"
-                      style={{ color: themeColors.text }}
-                    >
-                      Priority
-                    </label>
-                    <select
-                      name="priority"
-                      value={formData.priority}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
-                      style={{
-                        backgroundColor: colors.background.primary,
-                        borderColor: colors.border.primary,
-                        color: themeColors.text,
-                      }}
-                    >
-                      <option value="low">Low</option>
-                      <option value="medium">Medium</option>
-                      <option value="high">High</option>
-                      <option value="urgent">Urgent</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label 
-                      className="block text-sm font-medium mb-2"
-                      style={{ color: themeColors.text }}
-                    >
-                      Category
-                    </label>
-                    <select
-                      name="category"
-                      value={formData.category}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
-                      style={{
-                        backgroundColor: colors.background.primary,
-                        borderColor: colors.border.primary,
-                        color: themeColors.text,
-                      }}
-                    >
-                      <option value="general">General Question</option>
-                      <option value="technical">Technical Issue</option>
-                      <option value="billing">Billing & Account</option>
-                      <option value="hardware">Hardware Support</option>
-                      <option value="integration">Integration Help</option>
-                      <option value="feature">Feature Request</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label 
-                    className="block text-sm font-medium mb-2"
-                    style={{ color: themeColors.text }}
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    select
+                    label="Priority"
+                    name="priority"
+                    value={formData.priority}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                    InputProps={{
+                      startAdornment: <PriorityHigh sx={{ color: selectedPriority?.color || themeColors.textSecondary, mr: 1 }} />
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        '& fieldset': {
+                          borderColor: 'rgba(255, 255, 255, 0.2)'
+                        },
+                        '&:hover fieldset': {
+                          borderColor: `${themeColors.brand}60`
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: themeColors.brand
+                        }
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: themeColors.textSecondary
+                      },
+                      '& .MuiInputBase-input': {
+                        color: themeColors.text
+                      }
+                    }}
                   >
-                    Subject *
-                  </label>
-                  <input
-                    type="text"
+                    {priorityOptions.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        <Stack direction="row" alignItems="center" spacing={1}>
+                          <Box
+                            sx={{
+                              width: 8,
+                              height: 8,
+                              borderRadius: '50%',
+                              backgroundColor: option.color
+                            }}
+                          />
+                          <Typography>{option.label}</Typography>
+                        </Stack>
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    select
+                    label="Category"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                    InputProps={{
+                      startAdornment: <Category sx={{ color: themeColors.textSecondary, mr: 1 }} />
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        '& fieldset': {
+                          borderColor: 'rgba(255, 255, 255, 0.2)'
+                        },
+                        '&:hover fieldset': {
+                          borderColor: `${themeColors.brand}60`
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: themeColors.brand
+                        }
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: themeColors.textSecondary
+                      },
+                      '& .MuiInputBase-input': {
+                        color: themeColors.text
+                      }
+                    }}
+                  >
+                    {categoryOptions.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="Subject"
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
-                    style={{
-                      backgroundColor: colors.background.primary,
-                      borderColor: colors.border.primary,
-                      color: themeColors.text,
+                    variant="outlined"
+                    InputProps={{
+                      startAdornment: <Subject sx={{ color: themeColors.textSecondary, mr: 1 }} />
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        '& fieldset': {
+                          borderColor: 'rgba(255, 255, 255, 0.2)'
+                        },
+                        '&:hover fieldset': {
+                          borderColor: `${themeColors.brand}60`
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: themeColors.brand
+                        }
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: themeColors.textSecondary
+                      },
+                      '& .MuiInputBase-input': {
+                        color: themeColors.text
+                      }
                     }}
                   />
-                </div>
+                </Grid>
 
-                <div>
-                  <label 
-                    className="block text-sm font-medium mb-2"
-                    style={{ color: themeColors.text }}
-                  >
-                    Message *
-                  </label>
-                  <textarea
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={6}
+                    label="Message"
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
                     required
-                    rows={6}
-                    className="w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 resize-none"
-                    style={{
-                      backgroundColor: colors.background.primary,
-                      borderColor: colors.border.primary,
-                      color: themeColors.text,
-                    }}
+                    variant="outlined"
                     placeholder="Please describe your issue or question in detail..."
+                    InputProps={{
+                      startAdornment: <Message sx={{ color: themeColors.textSecondary, mr: 1, alignSelf: 'flex-start', mt: 1 }} />
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        backdropFilter: 'blur(10px)',
+                        '& fieldset': {
+                          borderColor: 'rgba(255, 255, 255, 0.2)'
+                        },
+                        '&:hover fieldset': {
+                          borderColor: `${themeColors.brand}60`
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: themeColors.brand
+                        }
+                      },
+                      '& .MuiInputLabel-root': {
+                        color: themeColors.textSecondary
+                      },
+                      '& .MuiInputBase-input': {
+                        color: themeColors.text
+                      }
+                    }}
                   />
-                </div>
+                </Grid>
 
-                <button
-                  type="submit"
-                  className="w-full py-4 rounded-lg font-semibold transition-colors duration-300"
-                  style={{
-                    backgroundColor: primaryColors.default,
-                    color: colors.text.inverse,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = primaryColors.hover;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = primaryColors.default;
+                <Grid item xs={12}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    size="large"
+                    startIcon={<Send />}
+                    fullWidth
+                    sx={{
+                      py: 2,
+                      fontSize: '1.1rem',
+                      fontWeight: 600,
+                      background: `linear-gradient(135deg, ${themeColors.brand}, ${themeColors.brand}CC)`,
+                      borderRadius: 3,
+                      textTransform: 'none',
+                      boxShadow: `0 8px 32px ${themeColors.brand}30`,
+                      '&:hover': {
+                        background: `linear-gradient(135deg, ${themeColors.brand}DD, ${themeColors.brand})`,
+                        transform: 'translateY(-2px)',
+                        boxShadow: `0 12px 48px ${themeColors.brand}40`
+                      }
+                    }}
+                  >
+                    Submit Support Request
+                  </Button>
+                </Grid>
+              </Grid>
+            </Box>
+          ) : (
+            <Alert
+              severity="success"
+              icon={<CheckCircle sx={{ fontSize: '2rem' }} />}
+              sx={{
+                background: 'rgba(16, 185, 129, 0.1)',
+                backdropFilter: 'blur(20px)',
+                border: '2px solid rgba(16, 185, 129, 0.3)',
+                borderRadius: 4,
+                p: 4,
+                '& .MuiAlert-icon': {
+                  fontSize: '2rem',
+                  color: '#10B981'
+                },
+                '& .MuiAlert-message': {
+                  width: '100%'
+                }
+              }}
+            >
+              <Stack spacing={2} alignItems="center" sx={{ textAlign: 'center' }}>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    color: themeColors.text,
+                    fontWeight: 700,
+                    fontSize: { xs: '1.5rem', sm: '1.75rem' }
                   }}
                 >
-                  Submit Support Request
-                </button>
-              </form>
-            ) : (
-              <div 
-                className="p-8 rounded-xl text-center"
-                style={{ backgroundColor: themeColors.surface }}
-              >
-                <div className="text-4xl mb-4">✅</div>
-                <h3 
-                  className="text-2xl font-bold mb-4"
-                  style={{ color: themeColors.text }}
-                >
-                  Request Submitted!
-                </h3>
-                <p 
-                  className="text-lg mb-6"
-                  style={{ color: themeColors.textSecondary }}
+                  Request Submitted Successfully!
+                </Typography>
+                
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: themeColors.textSecondary,
+                    fontSize: '1.125rem',
+                    lineHeight: 1.6
+                  }}
                 >
                   Thank you for contacting us. We'll get back to you within 2 hours during business hours.
-                </p>
-                <p 
-                  className="text-sm"
-                  style={{ color: themeColors.textSecondary }}
-                >
-                  Reference ID: #SUP-{Date.now().toString().slice(-6)}
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </section>
+                </Typography>
+
+                <Chip
+                  label={`Reference ID: #SUP-${Date.now().toString().slice(-6)}`}
+                  sx={{
+                    background: 'rgba(16, 185, 129, 0.15)',
+                    color: '#10B981',
+                    fontWeight: 600,
+                    fontSize: '0.875rem'
+                  }}
+                />
+              </Stack>
+            </Alert>
+          )}
+        </Paper>
+      </motion.div>
+    );
+  };
+
+  return (
+    <Box
+      component="section"
+      id="contact-support"
+      sx={{
+        py: { xs: 8, lg: 12 },
+        background: `linear-gradient(135deg, ${themeColors.background} 0%, ${themeColors.backgroundSecondary} 100%)`,
+        position: 'relative',
+        overflow: 'hidden'
+      }}
+    >
+      {/* Background Elements */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `radial-gradient(circle at 20% 80%, ${themeColors.brand}08 0%, transparent 50%), 
+                       radial-gradient(circle at 80% 20%, ${themeColors.brand}08 0%, transparent 50%)`,
+          zIndex: 0
+        }}
+      />
+
+      <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
+        <SectionHeader />
+
+        <Grid container spacing={6}>
+          {/* Contact Methods */}
+          <Grid item xs={12} lg={5}>
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <Typography
+                variant="h4"
+                sx={{
+                  color: themeColors.text,
+                  fontWeight: 700,
+                  mb: 4,
+                  fontSize: { xs: '1.5rem', sm: '1.75rem' }
+                }}
+              >
+                Get Immediate Help
+              </Typography>
+
+              <Stack spacing={3}>
+                {contactMethods.map((method, index) => (
+                  <ContactMethodCard
+                    key={index}
+                    method={method}
+                    index={index}
+                  />
+                ))}
+              </Stack>
+            </motion.div>
+          </Grid>
+
+          {/* Contact Form */}
+          <Grid item xs={12} lg={7}>
+            <ContactForm />
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 }

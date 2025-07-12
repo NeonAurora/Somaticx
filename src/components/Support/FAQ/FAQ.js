@@ -3,6 +3,34 @@
 import { useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Box,
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  Stack,
+  Avatar,
+  Chip,
+  Button,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Divider
+} from '@mui/material';
+import { 
+  QuestionMark,
+  ExpandMore,
+  Support,
+  ChevronRight,
+  ContactSupport,
+  Category,
+  HelpCenter,
+  Settings,
+  CreditCard,
+  AutoAwesome
+} from '@mui/icons-material';
 
 export default function FAQ() {
   const [openItems, setOpenItems] = useState(new Set());
@@ -15,6 +43,18 @@ export default function FAQ() {
     surface: 'surface.primary',
     brand: 'brand.primary',
   });
+
+  const categoryIcons = {
+    'General': HelpCenter,
+    'Technical': Settings,
+    'Billing & Plans': CreditCard
+  };
+
+  const categoryColors = {
+    'General': '#10B981', // Success green
+    'Technical': '#3B82F6', // Info blue
+    'Billing & Plans': '#F59E0B' // Warning amber
+  };
 
   const faqCategories = [
     {
@@ -83,126 +123,375 @@ export default function FAQ() {
     setOpenItems(newOpenItems);
   };
 
-  return (
-    <section 
-      className="py-20"
-      style={{ backgroundColor: themeColors.background }}
-    >
-      <div className="max-w-4xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 
-            className="text-4xl lg:text-5xl font-bold mb-4"
-            style={{ color: themeColors.text }}
-          >
-            Frequently Asked Questions
-          </h2>
-          <p 
-            className="text-xl"
-            style={{ color: themeColors.textSecondary }}
-          >
-            Quick answers to common questions
-          </p>
-        </div>
+  const SectionHeader = () => {
+    return (
+      <Box sx={{ textAlign: 'center', mb: 8 }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <Chip
+            label="Frequently Asked Questions"
+            icon={<QuestionMark />}
+            sx={{
+              background: `${themeColors.brand}20`,
+              color: themeColors.brand,
+              fontWeight: 600,
+              fontSize: '0.875rem',
+              mb: 4,
+              border: `1px solid ${themeColors.brand}30`,
+              py: 2,
+              px: 1
+            }}
+          />
 
-        <div className="space-y-12">
-          {faqCategories.map((category, categoryIndex) => (
-            <div key={categoryIndex}>
-              <h3 
-                className="text-2xl font-bold mb-6"
-                style={{ color: themeColors.text }}
-              >
-                {category.category}
-              </h3>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '2.5rem', sm: '3.5rem', lg: '4rem' },
+              fontWeight: 800,
+              lineHeight: 1.1,
+              mb: 3,
+              background: `linear-gradient(135deg, ${themeColors.text}, ${themeColors.brand})`,
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}
+          >
+            Quick Answers to Common Questions
+          </Typography>
+
+          <Typography
+            variant="h5"
+            sx={{
+              color: themeColors.textSecondary,
+              fontSize: { xs: '1.125rem', sm: '1.25rem' },
+              lineHeight: 1.6,
+              maxWidth: '600px',
+              mx: 'auto'
+            }}
+          >
+            Find instant answers to help you get the most out of Somaticx solutions
+          </Typography>
+        </motion.div>
+      </Box>
+    );
+  };
+
+  const CategorySection = ({ category, categoryIndex }) => {
+    const IconComponent = categoryIcons[category.category];
+    const categoryColor = categoryColors[category.category];
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+      >
+        <Box sx={{ mb: 6 }}>
+          {/* Category Header */}
+          <Stack 
+            direction="row" 
+            spacing={2} 
+            alignItems="center" 
+            sx={{ mb: 4 }}
+          >
+            <Avatar
+              sx={{
+                width: 56,
+                height: 56,
+                background: `linear-gradient(135deg, ${categoryColor}20, ${categoryColor}40)`,
+                border: `2px solid ${categoryColor}30`
+              }}
+            >
+              <IconComponent sx={{ fontSize: '1.5rem', color: categoryColor }} />
+            </Avatar>
+            
+            <Typography
+              variant="h4"
+              sx={{
+                color: themeColors.text,
+                fontWeight: 700,
+                fontSize: { xs: '1.75rem', sm: '2.125rem' },
+                background: `linear-gradient(135deg, ${themeColors.text}, ${categoryColor})`,
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent'
+              }}
+            >
+              {category.category}
+            </Typography>
+          </Stack>
+
+          {/* Questions */}
+          <Stack spacing={3}>
+            {category.questions.map((item, questionIndex) => {
+              const itemId = `${categoryIndex}-${questionIndex}`;
+              const isOpen = openItems.has(itemId);
               
-              <div className="space-y-4">
-                {category.questions.map((item, questionIndex) => {
-                  const itemId = `${categoryIndex}-${questionIndex}`;
-                  const isOpen = openItems.has(itemId);
-                  
-                  return (
-                    <div
-                      key={questionIndex}
-                      className="rounded-xl border"
-                      style={{
-                        backgroundColor: themeColors.surface,
-                        borderColor: colors.border.primary,
+              return (
+                <motion.div
+                  key={questionIndex}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: questionIndex * 0.05 }}
+                  whileHover={{ x: 4 }}
+                >
+                  <Accordion
+                    expanded={isOpen}
+                    onChange={() => toggleItem(categoryIndex, questionIndex)}
+                    sx={{
+                      background: 'rgba(255, 255, 255, 0.08)',
+                      backdropFilter: 'blur(20px)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      borderRadius: 3,
+                      position: 'relative',
+                      overflow: 'hidden',
+                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      '&:hover': {
+                        background: 'rgba(255, 255, 255, 0.12)',
+                        border: `1px solid ${categoryColor}40`,
+                        boxShadow: `0 8px 32px rgba(0, 0, 0, 0.1), 0 4px 16px ${categoryColor}15`
+                      },
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: '3px',
+                        background: `linear-gradient(90deg, ${categoryColor}, ${categoryColor}80)`
+                      },
+                      '&.Mui-expanded': {
+                        margin: 0,
+                        '&::before': {
+                          background: `linear-gradient(90deg, ${categoryColor}, ${categoryColor})`
+                        }
+                      }
+                    }}
+                  >
+                    <AccordionSummary
+                      expandIcon={
+                        <motion.div
+                          animate={{ rotate: isOpen ? 180 : 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <ExpandMore sx={{ color: categoryColor, fontSize: '1.5rem' }} />
+                        </motion.div>
+                      }
+                      sx={{
+                        p: 3,
+                        '& .MuiAccordionSummary-content': {
+                          margin: 0,
+                          pr: 2
+                        }
                       }}
                     >
-                      <button
-                        onClick={() => toggleItem(categoryIndex, questionIndex)}
-                        className="w-full p-6 text-left flex justify-between items-center transition-colors duration-200"
-                        style={{ color: themeColors.text }}
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: themeColors.text,
+                          fontWeight: 600,
+                          fontSize: { xs: '1rem', sm: '1.125rem' },
+                          lineHeight: 1.4
+                        }}
                       >
-                        <span className="text-lg font-semibold pr-4">
-                          {item.question}
-                        </span>
-                        <span 
-                          className="text-2xl flex-shrink-0 transition-transform duration-300"
-                          style={{ 
-                            transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)',
-                            color: themeColors.brand 
+                        {item.question}
+                      </Typography>
+                    </AccordionSummary>
+                    
+                    <AccordionDetails sx={{ p: 0 }}>
+                      <Box sx={{ px: 3, pb: 3 }}>
+                        <Divider sx={{ mb: 3, borderColor: `${categoryColor}20` }} />
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            color: themeColors.textSecondary,
+                            fontSize: '1rem',
+                            lineHeight: 1.7
                           }}
                         >
-                          +
-                        </span>
-                      </button>
-                      
-                      {isOpen && (
-                        <div 
-                          className="px-6 pb-6"
-                          style={{ color: themeColors.textSecondary }}
-                        >
-                          <div 
-                            className="pt-4 border-t leading-relaxed"
-                            style={{ borderColor: colors.border.primary }}
-                          >
-                            {item.answer}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+                          {item.answer}
+                        </Typography>
+                      </Box>
+                    </AccordionDetails>
+                  </Accordion>
+                </motion.div>
+              );
+            })}
+          </Stack>
+        </Box>
+      </motion.div>
+    );
+  };
+
+  return (
+    <Box
+      component="section"
+      sx={{
+        py: { xs: 8, lg: 12 },
+        background: `linear-gradient(135deg, ${themeColors.background} 0%, ${themeColors.backgroundSecondary} 100%)`,
+        position: 'relative',
+        overflow: 'hidden'
+      }}
+    >
+      {/* Background Elements */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `radial-gradient(circle at 20% 80%, ${themeColors.brand}08 0%, transparent 50%), 
+                       radial-gradient(circle at 80% 20%, ${themeColors.brand}08 0%, transparent 50%)`,
+          zIndex: 0
+        }}
+      />
+
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <SectionHeader />
+
+        <Stack spacing={8}>
+          {faqCategories.map((category, categoryIndex) => (
+            <CategorySection 
+              key={categoryIndex}
+              category={category}
+              categoryIndex={categoryIndex}
+            />
           ))}
-        </div>
+        </Stack>
 
         {/* Contact Section */}
-        <div 
-          className="mt-16 p-8 rounded-2xl text-center"
-          style={{ backgroundColor: themeColors.surface }}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <h3 
-            className="text-2xl font-bold mb-4"
-            style={{ color: themeColors.text }}
-          >
-            Still have questions?
-          </h3>
-          <p 
-            className="text-lg mb-6"
-            style={{ color: themeColors.textSecondary }}
-          >
-            Our support team is here to help you succeed.
-          </p>
-          <a
-            href="#contact-support"
-            className="px-8 py-3 rounded-lg font-semibold transition-colors duration-300"
-            style={{
-              backgroundColor: themeColors.brand,
-              color: colors.text.inverse,
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = colors.brand.primaryDark;
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = themeColors.brand;
-            }}
-          >
-            Contact Support Team
-          </a>
-        </div>
-      </div>
-    </section>
+          <Box sx={{ mt: 10 }}>
+            <Card
+              sx={{
+                background: 'rgba(255, 255, 255, 0.08)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                borderRadius: 4,
+                p: 6,
+                maxWidth: 800,
+                mx: 'auto',
+                position: 'relative',
+                overflow: 'hidden',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '4px',
+                  background: `linear-gradient(90deg, ${themeColors.brand}, ${themeColors.brand}80)`
+                }
+              }}
+            >
+              <Stack spacing={3} alignItems="center" sx={{ textAlign: 'center' }}>
+                <Avatar
+                  sx={{
+                    width: 80,
+                    height: 80,
+                    background: `linear-gradient(135deg, ${themeColors.brand}20, ${themeColors.brand}40)`,
+                    border: `3px solid ${themeColors.brand}30`
+                  }}
+                >
+                  <ContactSupport sx={{ fontSize: '2rem', color: themeColors.brand }} />
+                </Avatar>
+
+                <Typography
+                  variant="h4"
+                  sx={{
+                    color: themeColors.text,
+                    fontWeight: 700,
+                    fontSize: { xs: '1.75rem', sm: '2.125rem' }
+                  }}
+                >
+                  Still Have Questions?
+                </Typography>
+                
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: themeColors.textSecondary,
+                    fontSize: '1.125rem',
+                    lineHeight: 1.6,
+                    maxWidth: 600,
+                    mx: 'auto'
+                  }}
+                >
+                  Our expert support team is ready to help you succeed with personalized assistance 
+                  and in-depth knowledge of your Somaticx solutions.
+                </Typography>
+
+                <Stack 
+                  direction={{ xs: 'column', sm: 'row' }} 
+                  spacing={3}
+                >
+                  <Button
+                    variant="contained"
+                    size="large"
+                    startIcon={<Support />}
+                    endIcon={<ChevronRight />}
+                    href="#contact-support"
+                    sx={{
+                      px: 4,
+                      py: 2,
+                      fontSize: '1.1rem',
+                      fontWeight: 600,
+                      background: `linear-gradient(135deg, ${themeColors.brand}, ${themeColors.brand}CC)`,
+                      borderRadius: 3,
+                      textTransform: 'none',
+                      boxShadow: `0 8px 32px ${themeColors.brand}30`,
+                      '&:hover': {
+                        background: `linear-gradient(135deg, ${themeColors.brand}DD, ${themeColors.brand})`,
+                        transform: 'translateY(-2px)',
+                        boxShadow: `0 12px 48px ${themeColors.brand}40`
+                      }
+                    }}
+                  >
+                    Contact Support Team
+                  </Button>
+                  
+                  <Button
+                    variant="outlined"
+                    size="large"
+                    startIcon={<AutoAwesome />}
+                    href="/demo"
+                    sx={{
+                      px: 4,
+                      py: 2,
+                      fontSize: '1.1rem',
+                      fontWeight: 600,
+                      borderColor: `${themeColors.brand}60`,
+                      color: themeColors.brand,
+                      borderRadius: 3,
+                      textTransform: 'none',
+                      borderWidth: 2,
+                      '&:hover': {
+                        borderColor: themeColors.brand,
+                        background: `${themeColors.brand}10`,
+                        borderWidth: 2
+                      }
+                    }}
+                  >
+                    Request Demo
+                  </Button>
+                </Stack>
+              </Stack>
+            </Card>
+          </Box>
+        </motion.div>
+      </Container>
+    </Box>
   );
 }

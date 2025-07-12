@@ -1,12 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import Layout from '@/components/common/Layout/Layout';
-import DemoHero from '@/components/Demo/DemoHero/DemoHero';
-import DemoFilter from '@/components/Demo/DemoFilter/DemoFilter';
-import DemoGrid from '@/components/Demo/DemoGrid/DemoGrid';
-import LiveDemoSection from '@/components/Demo/LiveDemoSection/LiveDemoSection';
-import { demoCategories, demos } from '@/data/demos';
+import ClientOnly from '@/components/common/ClientOnly/ClientOnly';
+
+// Dynamic imports for hydration-safe components
+const DemoHero = dynamic(() => import('@/components/Demo/DemoHero/DemoHero'), {
+  ssr: false,
+  loading: () => <div style={{ height: '100vh', background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)' }} />
+});
+
+const LiveDemoSection = dynamic(() => import('@/components/Demo/LiveDemoSection/LiveDemoSection'), { 
+  ssr: false,
+  loading: () => <div style={{ height: '60vh', background: 'transparent' }} />
+});
+
+const DemoFilter = dynamic(() => import('@/components/Demo/DemoFilter/DemoFilter'), { 
+  ssr: false,
+  loading: () => <div style={{ height: '20vh', background: 'transparent' }} />
+});
+
+const DemoGrid = dynamic(() => import('@/components/Demo/DemoGrid/DemoGrid'), { 
+  ssr: false,
+  loading: () => <div style={{ height: '80vh', background: 'transparent' }} />
+});
 
 export default function DemoPage() {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -15,19 +33,48 @@ export default function DemoPage() {
     setActiveCategory(categoryId);
   };
 
+  // Import demo data dynamically to prevent hydration issues
+  const [demoData, setDemoData] = useState(null);
+
+  // Load demo data on client side
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      import('@/data/demos').then(({ demoCategories, demos }) => {
+        setDemoData({ demoCategories, demos });
+      });
+    }
+  }, []);
+
   return (
-    <Layout>
-      <DemoHero />
-      <LiveDemoSection />
-      <DemoFilter 
-        categories={demoCategories}
-        activeCategory={activeCategory}
-        onCategoryChange={handleCategoryChange}
-      />
-      <DemoGrid 
-        demos={demos}
-        activeCategory={activeCategory}
-      />
-    </Layout>
+    <main className="min-h-screen">
+      <Layout>
+        <ClientOnly fallback={<div style={{ height: '100vh', background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)' }} />}>
+          <DemoHero />
+        </ClientOnly>
+        
+        <ClientOnly fallback={<div style={{ height: '60vh', background: 'transparent' }} />}>
+          <LiveDemoSection />
+        </ClientOnly>
+
+        {demoData && (
+          <>
+            <ClientOnly fallback={<div style={{ height: '20vh', background: 'transparent' }} />}>
+              <DemoFilter 
+                categories={demoData.demoCategories}
+                activeCategory={activeCategory}
+                onCategoryChange={handleCategoryChange}
+              />
+            </ClientOnly>
+
+            <ClientOnly fallback={<div style={{ height: '80vh', background: 'transparent' }} />}>
+              <DemoGrid 
+                demos={demoData.demos}
+                activeCategory={activeCategory}
+              />
+            </ClientOnly>
+          </>
+        )}
+      </Layout>
+    </main>
   );
 }
