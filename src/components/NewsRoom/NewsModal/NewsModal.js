@@ -2,6 +2,31 @@
 
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors, useInteractiveColors } from '@/hooks/useThemeColor';
+import { 
+  Modal, 
+  Box, 
+  Typography, 
+  IconButton, 
+  Chip, 
+  Button,
+  Paper,
+  Stack,
+  Divider
+} from '@mui/material';
+import {
+  Close,
+  Share,
+  ArrowBack,
+  Article,
+  Launch,
+  AttachMoney,
+  Group,
+  EmojiEvents,
+  Campaign,
+  AccessTime,
+  Person,
+  Launch as LaunchIcon
+} from '@mui/icons-material';
 
 export default function NewsModal({ article, isOpen, onClose }) {
   const { colors } = useTheme();
@@ -17,6 +42,18 @@ export default function NewsModal({ article, isOpen, onClose }) {
   });
 
   if (!isOpen || !article) return null;
+
+  const getIcon = (iconName) => {
+    const iconMap = {
+      'Article': Article,
+      'Launch': Launch,
+      'AttachMoney': AttachMoney,
+      'Group': Group,
+      'EmojiEvents': EmojiEvents,
+      'Campaign': Campaign
+    };
+    return iconMap[iconName] || Article;
+  };
 
   const getCategoryColor = (category) => {
     const categoryColors = {
@@ -40,204 +77,259 @@ export default function NewsModal({ article, isOpen, onClose }) {
     });
   };
 
+  const IconComponent = getIcon(article.categoryIcon);
+
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ backgroundColor: colors.surface.overlay }}
-      onClick={onClose}
+    <Modal
+      open={isOpen}
+      onClose={onClose}
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        p: 2
+      }}
     >
-      <div
-        className="max-w-4xl w-full max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl"
-        style={{ backgroundColor: themeColors.background }}
-        onClick={(e) => e.stopPropagation()}
+      <Paper
+        sx={{
+          maxWidth: '90vw',
+          width: '100%',
+          maxHeight: '90vh',
+          overflow: 'auto',
+          borderRadius: 4,
+          background: `${themeColors.background}F5`,
+          backdropFilter: 'blur(20px)',
+          border: `1px solid ${colors.border.primary}20`,
+          boxShadow: `0 24px 80px ${themeColors.brand}20`,
+          outline: 'none'
+        }}
       >
         {/* Header */}
-        <div className="relative p-8">
-          <button
+        <Box sx={{ position: 'relative', p: 4 }}>
+          <IconButton
             onClick={onClose}
-            className="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200"
-            style={{ 
-              backgroundColor: colors.surface.secondary,
-              color: themeColors.text 
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = colors.surface.tertiary;
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = colors.surface.secondary;
+            sx={{
+              position: 'absolute',
+              top: 16,
+              right: 16,
+              backgroundColor: `${colors.surface.secondary}CC`,
+              backdropFilter: 'blur(10px)',
+              '&:hover': {
+                backgroundColor: colors.surface.tertiary
+              }
             }}
           >
-            ✕
-          </button>
+            <Close sx={{ color: themeColors.text }} />
+          </IconButton>
 
           {/* Article Hero */}
-          <div 
-            className="h-64 rounded-xl mb-6 flex items-center justify-center text-8xl"
-            style={{
+          <Box
+            sx={{
+              height: 300,
+              borderRadius: 3,
+              mb: 4,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               background: `linear-gradient(135deg, ${getCategoryColor(article.category)}20, ${getCategoryColor(article.category)}40)`,
+              position: 'relative',
+              overflow: 'hidden'
             }}
           >
-            {article.image || article.categoryIcon || '📰'}
-          </div>
-
-          {/* Article Meta */}
-          <div className="flex flex-wrap items-center gap-3 mb-6">
-            <span 
-              className="px-3 py-1 rounded-full text-sm font-medium"
-              style={{
-                backgroundColor: `${getCategoryColor(article.category)}20`,
-                color: getCategoryColor(article.category),
+            <Box
+              sx={{
+                width: 120,
+                height: 120,
+                borderRadius: '50%',
+                background: `linear-gradient(135deg, ${getCategoryColor(article.category)}, ${getCategoryColor(article.category)}CC)`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: `0 12px 40px ${getCategoryColor(article.category)}40`
               }}
             >
-              {article.category}
-            </span>
-            <span 
-              className="text-sm"
-              style={{ color: themeColors.textMuted }}
-            >
+              <IconComponent sx={{ fontSize: 60, color: '#ffffff' }} />
+            </Box>
+          </Box>
+
+          {/* Article Meta */}
+          <Stack direction="row" spacing={2} sx={{ mb: 3, flexWrap: 'wrap', gap: 1 }}>
+            <Chip 
+              label={article.category}
+              sx={{
+                backgroundColor: `${getCategoryColor(article.category)}20`,
+                color: getCategoryColor(article.category),
+                fontWeight: 600
+              }}
+            />
+            <Typography variant="body2" sx={{ color: themeColors.textMuted }}>
               {formatDate(article.date)}
-            </span>
+            </Typography>
             {article.readTime && (
-              <span 
-                className="text-sm"
-                style={{ color: themeColors.textMuted }}
-              >
-                {article.readTime} read
-              </span>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                <AccessTime sx={{ fontSize: 16, color: themeColors.textMuted }} />
+                <Typography variant="body2" sx={{ color: themeColors.textMuted }}>
+                  {article.readTime} read
+                </Typography>
+              </Box>
             )}
             {article.author && (
-              <span 
-                className="text-sm"
-                style={{ color: themeColors.textMuted }}
-              >
-                By {article.author}
-              </span>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                <Person sx={{ fontSize: 16, color: themeColors.textMuted }} />
+                <Typography variant="body2" sx={{ color: themeColors.textMuted }}>
+                  By {article.author}
+                </Typography>
+              </Box>
             )}
-          </div>
+          </Stack>
 
           {/* Title */}
-          <h1 
-            className="text-3xl lg:text-4xl font-bold mb-6"
-            style={{ color: themeColors.text }}
+          <Typography 
+            variant="h3" 
+            component="h1"
+            sx={{
+              fontWeight: 800,
+              mb: 3,
+              color: themeColors.text,
+              lineHeight: 1.2
+            }}
           >
             {article.title}
-          </h1>
+          </Typography>
 
           {/* Excerpt */}
-          <p 
-            className="text-xl leading-relaxed mb-8"
-            style={{ color: themeColors.textSecondary }}
+          <Typography 
+            variant="h6"
+            sx={{
+              color: themeColors.textSecondary,
+              mb: 4,
+              lineHeight: 1.6,
+              fontWeight: 400
+            }}
           >
             {article.excerpt}
-          </p>
-        </div>
+          </Typography>
+        </Box>
+
+        <Divider sx={{ borderColor: `${colors.border.primary}30` }} />
 
         {/* Content */}
-        <div className="px-8 pb-8">
+        <Box sx={{ p: 4 }}>
           {/* Article Content */}
-          <div className="prose prose-lg max-w-none mb-8">
+          <Box sx={{ mb: 4 }}>
             {article.content ? (
-              <div 
-                className="leading-relaxed"
-                style={{ color: themeColors.textSecondary }}
+              <Typography
+                component="div"
+                sx={{
+                  color: themeColors.textSecondary,
+                  lineHeight: 1.7,
+                  fontSize: '1.1rem',
+                  '& p': { mb: 2 },
+                  '& ul': { pl: 3, mb: 2 },
+                  '& li': { mb: 1 }
+                }}
                 dangerouslySetInnerHTML={{ __html: article.content }}
               />
             ) : (
-              <div className="space-y-6" style={{ color: themeColors.textSecondary }}>
-                <p className="leading-relaxed">
+              <Stack spacing={3}>
+                <Typography sx={{ color: themeColors.textSecondary, lineHeight: 1.7 }}>
                   This is the full article content. In a real implementation, this would contain 
                   the complete news article with proper formatting, quotes, and additional details 
                   about the announcement or update.
-                </p>
-                <p className="leading-relaxed">
+                </Typography>
+                <Typography sx={{ color: themeColors.textSecondary, lineHeight: 1.7 }}>
                   The content would include more specific information about the topic, 
                   including quotes from leadership, technical details, impact on customers, 
                   and future roadmap items.
-                </p>
-              </div>
+                </Typography>
+              </Stack>
             )}
-          </div>
+          </Box>
 
           {/* Tags */}
           {article.tags && (
-            <div className="mb-8">
-              <h3 
-                className="text-lg font-semibold mb-4"
-                style={{ color: themeColors.text }}
+            <Box sx={{ mb: 4 }}>
+              <Typography 
+                variant="h6" 
+                sx={{ color: themeColors.text, fontWeight: 700, mb: 2 }}
               >
                 Tags
-              </h3>
-              <div className="flex flex-wrap gap-3">
+              </Typography>
+              <Stack direction="row" spacing={1} sx={{ flexWrap: 'wrap', gap: 1 }}>
                 {article.tags.map((tag, index) => (
-                  <span
+                  <Chip
                     key={index}
-                    className="px-3 py-1 rounded-lg text-sm"
-                    style={{
-                      backgroundColor: colors.surface.secondary,
+                    label={`#${tag}`}
+                    size="small"
+                    variant="outlined"
+                    sx={{
+                      backgroundColor: `${colors.surface.secondary}80`,
                       color: themeColors.textMuted,
+                      border: 'none'
                     }}
-                  >
-                    #{tag}
-                  </span>
+                  />
                 ))}
-              </div>
-            </div>
+              </Stack>
+            </Box>
           )}
 
           {/* Related Links */}
           {article.relatedLinks && (
-            <div className="mb-8">
-              <h3 
-                className="text-lg font-semibold mb-4"
-                style={{ color: themeColors.text }}
+            <Box sx={{ mb: 4 }}>
+              <Typography 
+                variant="h6" 
+                sx={{ color: themeColors.text, fontWeight: 700, mb: 2 }}
               >
                 Related Links
-              </h3>
-              <div className="space-y-3">
+              </Typography>
+              <Stack spacing={2}>
                 {article.relatedLinks.map((link, index) => (
-                  <a
+                  <Paper
                     key={index}
+                    component="a"
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block p-4 rounded-lg transition-colors duration-200 border"
-                    style={{
-                      backgroundColor: themeColors.surface,
-                      borderColor: colors.border.primary,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = colors.surface.secondary;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = themeColors.surface;
+                    elevation={0}
+                    sx={{
+                      p: 3,
+                      borderRadius: 2,
+                      backgroundColor: `${themeColors.surface}CC`,
+                      border: `1px solid ${colors.border.primary}30`,
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        backgroundColor: colors.surface.secondary,
+                        transform: 'translateY(-2px)',
+                        boxShadow: `0 8px 24px ${themeColors.brand}15`
+                      }
                     }}
                   >
-                    <div className="flex items-center space-x-2">
-                      <span 
-                        className="font-semibold"
-                        style={{ color: themeColors.text }}
-                      >
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                      <Typography sx={{ color: themeColors.text, fontWeight: 600 }}>
                         {link.title}
-                      </span>
-                      <span className="text-sm">🔗</span>
-                    </div>
+                      </Typography>
+                      <LaunchIcon sx={{ fontSize: 16, color: themeColors.brand }} />
+                    </Box>
                     {link.description && (
-                      <p 
-                        className="text-sm mt-1"
-                        style={{ color: themeColors.textSecondary }}
+                      <Typography 
+                        variant="body2"
+                        sx={{ color: themeColors.textSecondary }}
                       >
                         {link.description}
-                      </p>
+                      </Typography>
                     )}
-                  </a>
+                  </Paper>
                 ))}
-              </div>
-            </div>
+              </Stack>
+            </Box>
           )}
 
+          <Divider sx={{ borderColor: `${colors.border.primary}30`, mb: 4 }} />
+
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 pt-8 border-t" style={{ borderColor: colors.border.primary }}>
-            <button
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
+            <Button
               onClick={() => {
                 navigator.share ? 
                   navigator.share({
@@ -247,42 +339,49 @@ export default function NewsModal({ article, isOpen, onClose }) {
                   }) :
                   navigator.clipboard.writeText(window.location.href)
               }}
-              className="flex-1 py-4 rounded-lg font-semibold text-center transition-colors duration-300"
-              style={{
-                backgroundColor: primaryColors.default,
+              variant="contained"
+              startIcon={<Share />}
+              sx={{
+                flex: 1,
+                py: 1.5,
+                borderRadius: 2,
+                background: `linear-gradient(135deg, ${primaryColors.default}, ${primaryColors.default}CC)`,
                 color: colors.text.inverse,
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = primaryColors.hover;
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = primaryColors.default;
+                fontWeight: 700,
+                boxShadow: `0 8px 32px ${primaryColors.default}40`,
+                '&:hover': {
+                  background: `linear-gradient(135deg, ${primaryColors.hover}, ${primaryColors.hover}CC)`,
+                  transform: 'translateY(-2px)',
+                  boxShadow: `0 12px 40px ${primaryColors.default}50`
+                }
               }}
             >
               Share Article
-            </button>
-            <a
+            </Button>
+            
+            <Button
               href="/newsroom"
-              className="flex-1 py-4 rounded-lg font-semibold text-center transition-all duration-300"
-              style={{
-                backgroundColor: 'transparent',
+              variant="outlined"
+              startIcon={<ArrowBack />}
+              sx={{
+                flex: 1,
+                py: 1.5,
+                borderRadius: 2,
                 color: getCategoryColor(article.category),
-                border: `2px solid ${getCategoryColor(article.category)}`,
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.backgroundColor = getCategoryColor(article.category);
-                e.target.style.color = colors.text.inverse;
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.backgroundColor = 'transparent';
-                e.target.style.color = getCategoryColor(article.category);
+                borderColor: getCategoryColor(article.category),
+                fontWeight: 700,
+                '&:hover': {
+                  backgroundColor: getCategoryColor(article.category),
+                  color: colors.text.inverse,
+                  transform: 'translateY(-2px)'
+                }
               }}
             >
               Back to Newsroom
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Button>
+          </Stack>
+        </Box>
+      </Paper>
+    </Modal>
   );
 }

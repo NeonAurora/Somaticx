@@ -18,14 +18,19 @@ import {
   ListItemText,
   Container,
   Chip,
-  Stack
+  Stack,
+  Menu,
+  MenuItem,
+  Fade
 } from '@mui/material';
 import { 
   Menu as MenuIcon,
   Close as CloseIcon,
   LightMode,
   DarkMode,
-  Biotech
+  Biotech,
+  ExpandMore,
+  KeyboardArrowDown
 } from '@mui/icons-material';
 
 const LogoAnimation = ({ isDark }) => {
@@ -181,6 +186,7 @@ export default function Header() {
   const { theme, toggleTheme, isDark } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dropdownAnchor, setDropdownAnchor] = useState(null);
   const navColors = useNavigationColors();
   
   const themeColors = useThemeColors({
@@ -191,14 +197,36 @@ export default function Header() {
     background: 'background.primary'
   });
 
-  const navigation = [
+  // Main navigation items (5 items as requested)
+  const mainNavigation = [
     { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Portfolio', href: '/portfolio' },
     { name: 'Services', href: '/services' },
-    { name: 'Demo', href: '/demo' },
     { name: 'Support', href: '/support' },
+    { name: 'Newsroom', href: '/newsroom' },
+    { name: 'About', href: '/about' },
   ];
+
+  // Secondary navigation items for dropdown
+  const secondaryNavigation = [
+    { name: 'Portfolio', href: '/portfolio' },
+    { name: 'Partners', href: '/partners' },
+    { name: 'Demo', href: '/demo' },
+    { name: 'Statistics', href: '/statistics' },
+    { name: 'Careers', href: '/careers' },
+    { name: 'Blog', href: '/blog' },
+  ];
+
+  // All navigation for mobile
+  const allNavigation = [...mainNavigation, ...secondaryNavigation];
+
+  // Handle dropdown
+  const handleDropdownOpen = (event) => {
+    setDropdownAnchor(event.currentTarget);
+  };
+
+  const handleDropdownClose = () => {
+    setDropdownAnchor(null);
+  };
 
   // Handle scroll effect
   useEffect(() => {
@@ -241,10 +269,54 @@ export default function Header() {
 
               {/* Desktop Navigation */}
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center' }}>
-                <Stack direction="row" spacing={1}>
-                  {navigation.map((item) => (
+                <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+                  {mainNavigation.map((item) => (
                     <NavigationItem key={item.name} item={item} />
                   ))}
+                  
+                  {/* More Dropdown */}
+                  <motion.div
+                    whileHover={{ y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Button
+                      onClick={handleDropdownOpen}
+                      endIcon={<KeyboardArrowDown sx={{ 
+                        transform: dropdownAnchor ? 'rotate(180deg)' : 'rotate(0deg)',
+                        transition: 'transform 0.3s ease'
+                      }} />}
+                      sx={{
+                        color: themeColors.text,
+                        fontWeight: 600,
+                        fontSize: '0.875rem',
+                        textTransform: 'none',
+                        px: 2,
+                        py: 1,
+                        borderRadius: 2,
+                        position: 'relative',
+                        overflow: 'hidden',
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: `linear-gradient(135deg, ${themeColors.primary}10, ${themeColors.primary}05)`,
+                          opacity: dropdownAnchor ? 1 : 0,
+                          transition: 'opacity 0.3s ease',
+                        },
+                        '&:hover': {
+                          color: themeColors.primary,
+                          '&::before': {
+                            opacity: 1,
+                          }
+                        }
+                      }}
+                    >
+                      More
+                    </Button>
+                  </motion.div>
                 </Stack>
               </Box>
 
@@ -350,7 +422,7 @@ export default function Header() {
           {/* Navigation Items */}
           <List sx={{ px: 0 }}>
             <AnimatePresence>
-              {navigation.map((item, index) => (
+              {allNavigation.map((item, index) => (
                 <motion.div
                   key={item.name}
                   initial={{ opacity: 0, x: 50 }}
@@ -385,6 +457,60 @@ export default function Header() {
           </Box>
         </Box>
       </Drawer>
+
+      {/* Desktop Dropdown Menu */}
+      <Menu
+        anchorEl={dropdownAnchor}
+        open={Boolean(dropdownAnchor)}
+        onClose={handleDropdownClose}
+        TransitionComponent={Fade}
+        sx={{
+          '& .MuiPaper-root': {
+            borderRadius: 3,
+            mt: 1,
+            minWidth: 200,
+            background: `rgba(${isDark ? '23, 23, 23' : '255, 255, 255'}, 0.95)`,
+            backdropFilter: 'blur(20px)',
+            border: `1px solid rgba(${isDark ? '255, 255, 255' : '0, 0, 0'}, 0.08)`,
+            boxShadow: `0 8px 32px rgba(${isDark ? '0, 0, 0' : '0, 0, 0'}, 0.1)`,
+          }
+        }}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+      >
+        {secondaryNavigation.map((item) => (
+          <MenuItem 
+            key={item.name}
+            component="a"
+            href={item.href}
+            onClick={handleDropdownClose}
+            sx={{
+              px: 3,
+              py: 1.5,
+              color: themeColors.text,
+              fontWeight: 600,
+              fontSize: '0.875rem',
+              borderRadius: 2,
+              mx: 1,
+              my: 0.5,
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                backgroundColor: `${themeColors.primary}10`,
+                color: themeColors.primary,
+                transform: 'translateX(4px)'
+              }
+            }}
+          >
+            {item.name}
+          </MenuItem>
+        ))}
+      </Menu>
 
       {/* Spacer for fixed header */}
       <Toolbar sx={{ minHeight: '72px !important' }} />

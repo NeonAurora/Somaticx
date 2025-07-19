@@ -4,15 +4,15 @@ import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 import { Box, Chip, Container, Typography, Stack } from '@mui/material';
 import {
-  Article,
-  Launch,
-  AttachMoney,
   Group,
-  EmojiEvents,
-  Campaign
+  Computer,
+  Science,
+  LocalShipping,
+  School,
+  AccountBalance
 } from '@mui/icons-material';
 
-export default function NewsFilter({ categories, activeCategory, onCategoryChange }) {
+export default function PartnerFilter({ categories, activeCategory, onCategoryChange }) {
   const { colors } = useTheme();
   
   const themeColors = useThemeColors({
@@ -25,14 +25,14 @@ export default function NewsFilter({ categories, activeCategory, onCategoryChang
 
   const getIcon = (iconName) => {
     const iconMap = {
-      'Article': Article,
-      'Launch': Launch,
-      'AttachMoney': AttachMoney,
       'Group': Group,
-      'EmojiEvents': EmojiEvents,
-      'Campaign': Campaign
+      'Computer': Computer,
+      'Science': Science,
+      'LocalShipping': LocalShipping,
+      'School': School,
+      'AccountBalance': AccountBalance
     };
-    const IconComponent = iconMap[iconName] || Article;
+    const IconComponent = iconMap[iconName] || Group;
     return IconComponent;
   };
 
@@ -59,13 +59,13 @@ export default function NewsFilter({ categories, activeCategory, onCategoryChang
               WebkitTextFillColor: 'transparent'
             }}
           >
-            Browse News by Category
+            Partner Categories
           </Typography>
           <Typography 
             variant="h6"
             sx={{ color: themeColors.textSecondary, fontWeight: 400 }}
           >
-            Filter news and updates by topic
+            Explore our diverse partnership ecosystem
           </Typography>
         </Box>
 

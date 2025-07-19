@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import Layout from '@/components/common/Layout/Layout';
-import NewsroomHero from '@/components/Newsroom/NewsroomHero/NewsroomHero';
-import NewsFilter from '@/components/Newsroom/NewsFilter/NewsFilter';
-import NewsGrid from '@/components/Newsroom/NewsGrid/NewsGrid';
-import NewsletterSignup from '@/components/Newsroom/NewsletterSignup/NewsletterSignup';
+import NewsroomHero from '@/components/NewsRoom/NewsroomHero/NewsroomHero';
+import NewsFilter from '@/components/NewsRoom/NewsFilter/NewsFilter';
+import NewsGrid from '@/components/NewsRoom/NewsGrid/NewsGrid';
+import NewsletterSignup from '@/components/NewsRoom/NewsletterSignup/NewsletterSignup';
 import { newsCategories, newsArticles } from '@/data/newsRoom';
 
 export default function NewsroomPage() {

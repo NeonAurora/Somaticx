@@ -3,6 +3,16 @@
 import { useState } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors, useInteractiveColors } from '@/hooks/useThemeColor';
+import { 
+  Box, 
+  Container, 
+  Typography, 
+  TextField, 
+  Button, 
+  Paper,
+  Stack
+} from '@mui/material';
+import { Email, CheckCircle } from '@mui/icons-material';
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState('');
@@ -26,97 +36,188 @@ export default function NewsletterSignup() {
   };
 
   return (
-    <section 
-      className="py-20"
-      style={{ backgroundColor: themeColors.background }}
+    <Box 
+      component="section"
+      sx={{
+        py: 12,
+        background: `linear-gradient(135deg, ${themeColors.background}F0, ${colors.background.secondary}F0)`,
+        backdropFilter: 'blur(20px)'
+      }}
       id="subscribe"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+      <Container maxWidth="lg">
+        <Paper
+          elevation={0}
+          sx={{
+            p: { xs: 4, md: 8 },
+            borderRadius: 6,
+            textAlign: 'center',
+            background: `${themeColors.surface}CC`,
+            backdropFilter: 'blur(20px)',
+            border: `1px solid ${colors.border.primary}20`,
+            boxShadow: `0 20px 60px ${themeColors.brand}10`
+          }}
+        >
           {!isSubscribed ? (
-            <div 
-              className="p-8 lg:p-12 rounded-2xl text-center"
-              style={{ backgroundColor: themeColors.surface }}
-            >
-              <div className="text-4xl mb-6">📧</div>
-              <h2 
-                className="text-3xl font-bold mb-4"
-                style={{ color: themeColors.text }}
+            <>
+              <Box
+                sx={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: '50%',
+                  background: `linear-gradient(135deg, ${themeColors.brand}, ${themeColors.brand}CC)`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mx: 'auto',
+                  mb: 4,
+                  boxShadow: `0 8px 32px ${themeColors.brand}40`
+                }}
+              >
+                <Email sx={{ fontSize: 50, color: '#ffffff' }} />
+              </Box>
+              
+              <Typography 
+                variant="h3" 
+                component="h2"
+                sx={{
+                  fontWeight: 800,
+                  mb: 3,
+                  background: `linear-gradient(135deg, ${themeColors.text}, ${themeColors.brand})`,
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }}
               >
                 Stay Updated with Somaticx News
-              </h2>
-              <p 
-                className="text-lg mb-8"
-                style={{ color: themeColors.textSecondary }}
+              </Typography>
+              
+              <Typography 
+                variant="h6"
+                sx={{ 
+                  color: themeColors.textSecondary,
+                  mb: 6,
+                  maxWidth: 600,
+                  mx: 'auto',
+                  lineHeight: 1.6
+                }}
               >
                 Get the latest company updates, product launches, and industry insights 
                 delivered directly to your inbox.
-              </p>
+              </Typography>
               
-              <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <input
+              <Box 
+                component="form" 
+                onSubmit={handleSubmit} 
+                sx={{ maxWidth: 500, mx: 'auto' }}
+              >
+                <Stack 
+                  direction={{ xs: 'column', sm: 'row' }} 
+                  spacing={2}
+                  sx={{ mb: 3 }}
+                >
+                  <TextField
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email address"
                     required
-                    className="flex-1 px-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
-                    style={{
-                      backgroundColor: colors.background.primary,
-                      borderColor: colors.border.primary,
-                      color: themeColors.text,
-                      focusRingColor: themeColors.brand,
+                    fullWidth
+                    variant="outlined"
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        backgroundColor: `${colors.background.primary}CC`,
+                        borderRadius: 2,
+                        '& fieldset': {
+                          borderColor: colors.border.primary
+                        },
+                        '&:hover fieldset': {
+                          borderColor: themeColors.brand
+                        },
+                        '&.Mui-focused fieldset': {
+                          borderColor: themeColors.brand
+                        }
+                      },
+                      '& .MuiInputBase-input': {
+                        color: themeColors.text
+                      }
                     }}
                   />
-                  <button
+                  
+                  <Button
                     type="submit"
-                    className="px-8 py-3 rounded-lg font-semibold transition-colors duration-300"
-                    style={{
-                      backgroundColor: primaryColors.default,
+                    variant="contained"
+                    size="large"
+                    sx={{
+                      px: 4,
+                      py: 1.75,
+                      borderRadius: 2,
+                      background: `linear-gradient(135deg, ${primaryColors.default}, ${primaryColors.default}CC)`,
                       color: colors.text.inverse,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = primaryColors.hover;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = primaryColors.default;
+                      fontWeight: 700,
+                      fontSize: '1rem',
+                      minWidth: 140,
+                      boxShadow: `0 8px 32px ${primaryColors.default}40`,
+                      '&:hover': {
+                        background: `linear-gradient(135deg, ${primaryColors.hover}, ${primaryColors.hover}CC)`,
+                        transform: 'translateY(-2px)',
+                        boxShadow: `0 12px 40px ${primaryColors.default}50`
+                      }
                     }}
                   >
                     Subscribe
-                  </button>
-                </div>
-              </form>
-              
-              <p 
-                className="text-sm mt-4"
-                style={{ color: themeColors.textSecondary }}
-              >
-                We respect your privacy. Unsubscribe anytime.
-              </p>
-            </div>
+                  </Button>
+                </Stack>
+                
+                <Typography 
+                  variant="body2"
+                  sx={{ color: themeColors.textSecondary, fontSize: '0.875rem' }}
+                >
+                  We respect your privacy. Unsubscribe anytime.
+                </Typography>
+              </Box>
+            </>
           ) : (
-            <div 
-              className="p-8 lg:p-12 rounded-2xl text-center"
-              style={{ backgroundColor: themeColors.surface }}
-            >
-              <div className="text-4xl mb-6">✅</div>
-              <h2 
-                className="text-3xl font-bold mb-4"
-                style={{ color: themeColors.text }}
+            <>
+              <Box
+                sx={{
+                  width: 100,
+                  height: 100,
+                  borderRadius: '50%',
+                  background: `linear-gradient(135deg, ${colors.status.success}, ${colors.status.success}CC)`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mx: 'auto',
+                  mb: 4,
+                  boxShadow: `0 8px 32px ${colors.status.success}40`
+                }}
+              >
+                <CheckCircle sx={{ fontSize: 50, color: '#ffffff' }} />
+              </Box>
+              
+              <Typography 
+                variant="h3" 
+                component="h2"
+                sx={{
+                  fontWeight: 800,
+                  mb: 3,
+                  color: themeColors.text
+                }}
               >
                 Thanks for Subscribing!
-              </h2>
-              <p 
-                className="text-lg"
-                style={{ color: themeColors.textSecondary }}
+              </Typography>
+              
+              <Typography 
+                variant="h6"
+                sx={{ color: themeColors.textSecondary }}
               >
-                You'll receive our latest updates and announcements in your inbox.
-              </p>
-            </div>
+                You&apos;ll receive our latest updates and announcements in your inbox.
+              </Typography>
+            </>
           )}
-        </div>
-      </div>
-    </section>
+        </Paper>
+      </Container>
+    </Box>
   );
 }

@@ -6,8 +6,6 @@ import Layout from '@/components/common/Layout/Layout';
 import ClientOnly from '@/components/common/ClientOnly/ClientOnly';
 import { projects } from '@/data/projects';
 import { notFound } from 'next/navigation';
-import ProjectDetailHero from '@/components/Portfolio/ProjectDetailHero/ProjectDetailHero';
-import ProjectDetailContent from '@/components/Portfolio/ProjectDetailContent/ProjectDetailContent';
 
 // Dynamic imports for animation-heavy components
 const ProjectDetailHero = dynamic(() => import('@/components/Portfolio/ProjectDetailHero/ProjectDetailHero'), {

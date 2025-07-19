@@ -58,22 +58,24 @@ export const ThemeProvider = ({ children }) => {
 
   // Handle theme initialization and system preference detection
   useEffect(() => {
+    setMounted(true);
+    
     try {
       const savedTheme = localStorage.getItem('somaticx-theme');
       const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       const initialTheme = savedTheme || systemTheme;
       
-      setTheme(initialTheme);
-      setMounted(true);
+      if (initialTheme !== theme) {
+        setTheme(initialTheme);
+      }
       
       // Apply theme to document
       applyThemeToDocument(initialTheme);
     } catch (error) {
       console.error('Error in theme initialization:', error);
-      setTheme('light');
-      setMounted(true);
+      applyThemeToDocument('light');
     }
-  }, [applyThemeToDocument]);
+  }, []);
 
   // Listen for system theme changes
   useEffect(() => {
@@ -187,13 +189,7 @@ export const ThemeProvider = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={value}>
-      {!mounted ? (
-        <div suppressHydrationWarning={true} style={{ visibility: 'hidden' }}>
-          {children}
-        </div>
-      ) : (
-        children
-      )}
+      {children}
     </ThemeContext.Provider>
   );
 };

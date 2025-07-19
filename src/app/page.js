@@ -11,7 +11,7 @@ const HeroSection = dynamic(() => import('@/components/Home/HeroSection/HeroSect
   loading: () => <div style={{ height: '100vh', background: 'linear-gradient(135deg, #16a34a 0%, #15803d 100%)' }} />
 });
 
-const WhyUs = dynamic(() => import('@/components/Home/WhyUs/WhyUs'), { ssr: false });
+const WhyUs = dynamic(() => import('@/components/Home/WhyUs/WhyUsOptimized'), { ssr: false });
 const StatsBar = dynamic(() => import('@/components/Home/StatsBar/StatsBar'), { ssr: false });
 const ProductDemoCarousel = dynamic(() => import('@/components/Home/ProductDemoCarousel/ProductDemoCarousel'), { ssr: false });
 const NewsroomTicker = dynamic(() => import('@/components/Home/NewsroomTicker/NewsroomTicker'), { ssr: false });

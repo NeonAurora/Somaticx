@@ -9,16 +9,20 @@ import {
   Button, 
   Paper,
   Stack,
-  Chip
+  Chip,
+  Grid
 } from '@mui/material';
 import { 
-  Newspaper, 
+  Handshake, 
   Email, 
   Description,
-  TrendingUp
+  TrendingUp,
+  Group,
+  Public,
+  BusinessCenter
 } from '@mui/icons-material';
 
-export default function NewsroomHero() {
+export default function PartnersHero() {
   const { colors } = useTheme();
   const primaryColors = useInteractiveColors('primary');
   
@@ -29,12 +33,11 @@ export default function NewsroomHero() {
     brand: 'brand.primary',
   });
 
-  const latestNews = {
-    headline: "Somaticx Raises $5M Series A to Accelerate Bio-Industry Innovation",
-    date: "December 15, 2024",
-    category: "Funding",
-    excerpt: "Leading the next generation of agricultural and livestock technology solutions with expanded R&D capabilities."
-  };
+  const stats = [
+    { number: '18+', label: 'Active Partners', icon: Group },
+    { number: '6', label: 'Countries', icon: Public },
+    { number: '25+', label: 'Joint Projects', icon: BusinessCenter }
+  ];
 
   return (
     <Box 
@@ -54,8 +57,8 @@ export default function NewsroomHero() {
           left: 0,
           right: 0,
           bottom: 0,
-          background: `radial-gradient(circle at 30% 40%, ${themeColors.brand}10, transparent 50%),
-                       radial-gradient(circle at 80% 80%, ${colors.accent.primary}08, transparent 50%)`,
+          background: `radial-gradient(circle at 25% 30%, ${themeColors.brand}12, transparent 50%),
+                       radial-gradient(circle at 75% 70%, ${colors.accent.primary}08, transparent 50%)`,
           pointerEvents: 'none'
         }}
       />
@@ -85,7 +88,7 @@ export default function NewsroomHero() {
                 bottom: '-10px',
                 borderRadius: '50%',
                 background: `conic-gradient(from 0deg, ${themeColors.brand}40, transparent, ${themeColors.brand}40)`,
-                animation: 'rotate 4s linear infinite'
+                animation: 'rotate 6s linear infinite'
               },
               '@keyframes rotate': {
                 '0%': { transform: 'rotate(0deg)' },
@@ -93,7 +96,7 @@ export default function NewsroomHero() {
               }
             }}
           >
-            <Newspaper sx={{ fontSize: 60, color: '#ffffff', zIndex: 1 }} />
+            <Handshake sx={{ fontSize: 60, color: '#ffffff', zIndex: 1 }} />
           </Box>
 
           <Typography 
@@ -109,7 +112,7 @@ export default function NewsroomHero() {
               letterSpacing: '-0.02em'
             }}
           >
-            Newsroom
+            Our Partners
           </Typography>
           
           <Typography 
@@ -121,7 +124,7 @@ export default function NewsroomHero() {
               fontSize: { xs: '1.5rem', md: '2rem' }
             }}
           >
-            Latest Updates & Company News
+            Collaborating for Innovation
           </Typography>
           
           <Typography 
@@ -134,8 +137,8 @@ export default function NewsroomHero() {
               fontWeight: 400
             }}
           >
-            Stay informed about our latest developments, product launches, partnerships, 
-            and industry insights. Your source for all Somaticx news and announcements.
+            Building strategic alliances with industry leaders, research institutions, and technology 
+            partners to advance bio-industry solutions and deliver exceptional value to our customers.
           </Typography>
 
           <Stack 
@@ -144,7 +147,7 @@ export default function NewsroomHero() {
             sx={{ justifyContent: 'center', mb: 8 }}
           >
             <Button
-              href="#subscribe"
+              href="#partnership-inquiry"
               variant="contained"
               size="large"
               startIcon={<Email />}
@@ -164,11 +167,11 @@ export default function NewsroomHero() {
                 }
               }}
             >
-              Subscribe to Updates
+              Become a Partner
             </Button>
             
             <Button
-              href="#press-kit"
+              href="#partner-directory"
               variant="outlined"
               size="large"
               startIcon={<Description />}
@@ -190,89 +193,78 @@ export default function NewsroomHero() {
                 }
               }}
             >
-              Press Kit
+              Partner Directory
             </Button>
           </Stack>
         </Box>
 
-        {/* Featured News */}
-        <Paper
-          elevation={0}
-          sx={{
-            maxWidth: '900px',
-            mx: 'auto',
-            p: { xs: 4, md: 6 },
-            borderRadius: 4,
-            background: `${colors.surface.primary}CC`,
-            backdropFilter: 'blur(20px)',
-            border: `1px solid ${colors.border.primary}20`,
-            boxShadow: `0 20px 60px ${themeColors.brand}10`
-          }}
-        >
-          <Stack direction="row" spacing={2} sx={{ mb: 3, alignItems: 'center', flexWrap: 'wrap', gap: 1 }}>
-            <Chip 
-              icon={<TrendingUp sx={{ fontSize: '1rem !important' }} />}
-              label="Latest News"
-              sx={{
-                backgroundColor: `${colors.status.success}20`,
-                color: colors.status.success,
-                fontWeight: 600,
-                '& .MuiChip-icon': {
-                  color: 'inherit'
-                }
-              }}
-            />
-            <Typography 
-              variant="body2"
-              sx={{ color: themeColors.textSecondary }}
-            >
-              {latestNews.date}
-            </Typography>
-          </Stack>
-          
-          <Typography 
-            variant="h4" 
-            component="h2"
-            sx={{
-              fontWeight: 800,
-              mb: 3,
-              color: themeColors.text,
-              lineHeight: 1.3
-            }}
-          >
-            {latestNews.headline}
-          </Typography>
-          
-          <Typography 
-            variant="h6"
-            sx={{
-              color: themeColors.textSecondary,
-              mb: 4,
-              lineHeight: 1.6,
-              fontWeight: 400
-            }}
-          >
-            {latestNews.excerpt}
-          </Typography>
-          
-          <Button
-            href="#latest-article"
-            variant="text"
-            endIcon={<TrendingUp sx={{ transform: 'rotate(45deg)' }} />}
-            sx={{
-              color: themeColors.brand,
-              fontWeight: 700,
-              fontSize: '1.1rem',
-              textTransform: 'none',
-              '&:hover': {
-                color: colors.brand.primaryDark,
-                backgroundColor: `${themeColors.brand}10`
-              }
-            }}
-          >
-            Read Full Story
-          </Button>
-        </Paper>
+        {/* Partnership Stats */}
+        <Grid container spacing={4} sx={{ maxWidth: '800px', mx: 'auto' }}>
+          {stats.map((stat, index) => {
+            const IconComponent = stat.icon;
+            return (
+              <Grid item xs={12} md={4} key={index}>
+                <Paper
+                  elevation={0}
+                  sx={{
+                    p: 4,
+                    borderRadius: 4,
+                    textAlign: 'center',
+                    background: `${colors.surface.primary}CC`,
+                    backdropFilter: 'blur(20px)',
+                    border: `1px solid ${colors.border.primary}20`,
+                    boxShadow: `0 8px 32px ${themeColors.brand}08`,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: `0 20px 60px ${themeColors.brand}15`
+                    }
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 60,
+                      height: 60,
+                      borderRadius: '50%',
+                      background: `linear-gradient(135deg, ${themeColors.brand}20, ${themeColors.brand}40)`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mx: 'auto',
+                      mb: 2
+                    }}
+                  >
+                    <IconComponent sx={{ fontSize: 30, color: themeColors.brand }} />
+                  </Box>
+                  
+                  <Typography 
+                    variant="h3" 
+                    sx={{ 
+                      fontWeight: 800, 
+                      mb: 1,
+                      background: `linear-gradient(135deg, ${themeColors.text}, ${themeColors.brand})`,
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent'
+                    }}
+                  >
+                    {stat.number}
+                  </Typography>
+                  
+                  <Typography 
+                    variant="h6" 
+                    sx={{ 
+                      color: themeColors.textSecondary,
+                      fontWeight: 600 
+                    }}
+                  >
+                    {stat.label}
+                  </Typography>
+                </Paper>
+              </Grid>
+            );
+          })}
+        </Grid>
       </Container>
     </Box>
   );

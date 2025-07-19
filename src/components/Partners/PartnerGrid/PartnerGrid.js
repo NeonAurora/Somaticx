@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import NewsCard from '../NewsCard/NewsCard';
-import NewsModal from '../NewsModal/NewsModal';
+import PartnerCard from '../PartnerCard/PartnerCard';
+import PartnerModal from '../PartnerModal/PartnerModal';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 import { 
@@ -12,10 +12,10 @@ import {
   Grid, 
   Paper 
 } from '@mui/material';
-import { Article } from '@mui/icons-material';
+import { Group } from '@mui/icons-material';
 
-export default function NewsGrid({ articles, activeCategory }) {
-  const [selectedArticle, setSelectedArticle] = useState(null);
+export default function PartnerGrid({ partners, activeCategory }) {
+  const [selectedPartner, setSelectedPartner] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
   const { colors } = useTheme();
@@ -25,25 +25,27 @@ export default function NewsGrid({ articles, activeCategory }) {
     textSecondary: 'text.secondary',
   });
 
-  const filteredArticles = activeCategory === 'all' 
-    ? articles 
-    : articles.filter(article => article.categoryId === activeCategory);
+  const filteredPartners = activeCategory === 'all' 
+    ? partners 
+    : partners.filter(partner => partner.categoryId === activeCategory);
 
-  // Sort by date (newest first)
-  const sortedArticles = [...filteredArticles].sort((a, b) => new Date(b.date) - new Date(a.date));
+  // Sort by partnership duration and name
+  const sortedPartners = [...filteredPartners].sort((a, b) => {
+    // Sort by partnership start year (more recent first), then by name
+    const yearA = parseInt(a.since);
+    const yearB = parseInt(b.since);
+    if (yearB !== yearA) return yearB - yearA;
+    return a.name.localeCompare(b.name);
+  });
 
-  const handleArticleClick = (article) => {
-    if (article.external && article.externalUrl) {
-      window.open(article.externalUrl, '_blank');
-    } else {
-      setSelectedArticle(article);
-      setIsModalOpen(true);
-    }
+  const handlePartnerClick = (partner) => {
+    setSelectedPartner(partner);
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setTimeout(() => setSelectedArticle(null), 300);
+    setTimeout(() => setSelectedPartner(null), 300);
   };
 
   return (
@@ -56,7 +58,7 @@ export default function NewsGrid({ articles, activeCategory }) {
       }}
     >
       <Container maxWidth="xl">
-        {sortedArticles.length === 0 ? (
+        {sortedPartners.length === 0 ? (
           <Paper
             elevation={0}
             sx={{
@@ -81,7 +83,7 @@ export default function NewsGrid({ articles, activeCategory }) {
                 mb: 4
               }}
             >
-              <Article sx={{ fontSize: 60, color: themeColors.brand }} />
+              <Group sx={{ fontSize: 60, color: themeColors.brand }} />
             </Box>
             <Typography 
               variant="h4" 
@@ -92,13 +94,13 @@ export default function NewsGrid({ articles, activeCategory }) {
                 mb: 2
               }}
             >
-              No News Found
+              No Partners Found
             </Typography>
             <Typography 
               variant="h6"
               sx={{ color: themeColors.textSecondary }}
             >
-              Try selecting a different category to see more articles.
+              Try selecting a different category to see more partners.
             </Typography>
           </Paper>
         ) : (
@@ -116,7 +118,7 @@ export default function NewsGrid({ articles, activeCategory }) {
                   WebkitTextFillColor: 'transparent'
                 }}
               >
-                {activeCategory === 'all' ? 'All News' : `${sortedArticles[0]?.category} News`}
+                {activeCategory === 'all' ? 'All Partners' : `${sortedPartners[0]?.category} Partners`}
               </Typography>
               <Typography 
                 variant="h6"
@@ -125,16 +127,16 @@ export default function NewsGrid({ articles, activeCategory }) {
                   fontWeight: 400
                 }}
               >
-                Showing {sortedArticles.length} article{sortedArticles.length !== 1 ? 's' : ''}
+                Showing {sortedPartners.length} partner{sortedPartners.length !== 1 ? 's' : ''}
               </Typography>
             </Box>
 
             <Grid container spacing={4}>
-              {sortedArticles.map((article) => (
-                <Grid item xs={12} md={6} lg={4} key={article.id}>
-                  <NewsCard
-                    article={article}
-                    onClick={handleArticleClick}
+              {sortedPartners.map((partner) => (
+                <Grid item xs={12} md={6} lg={4} key={partner.id}>
+                  <PartnerCard
+                    partner={partner}
+                    onClick={handlePartnerClick}
                   />
                 </Grid>
               ))}
@@ -142,9 +144,9 @@ export default function NewsGrid({ articles, activeCategory }) {
           </>
         )}
 
-        {selectedArticle && (
-          <NewsModal
-            article={selectedArticle}
+        {selectedPartner && (
+          <PartnerModal
+            partner={selectedPartner}
             isOpen={isModalOpen}
             onClose={handleCloseModal}
           />

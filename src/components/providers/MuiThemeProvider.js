@@ -3,15 +3,15 @@
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-// Create the MUI theme in the client component
+// Create a stable theme that doesn't change during SSR/hydration
 const muiTheme = createTheme({
   palette: {
-    mode: 'dark', // or 'light' - you can make this dynamic based on your theme
+    mode: 'light', // Fixed mode to prevent SSR mismatches
     primary: {
-      main: '#16a34a', // Your brand primary color
+      main: '#16a34a',
     },
     secondary: {
-      main: '#2563eb', // Your brand secondary color
+      main: '#2563eb',
     },
   },
   typography: {
