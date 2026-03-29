@@ -4,9 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:webpack": "next dev",
     "build": "next build",
+    "build:analyze": "next build",
+    "build:turbo": "next build --turbopack",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next build"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -32,6 +36,7 @@
     "@types/node": "^24.0.13",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "webpack-bundle-analyzer": "^4.10.1"
   }
 }

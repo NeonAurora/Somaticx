@@ -3,7 +3,7 @@
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo, useMemo, useCallback } from 'react';
 import { 
   Box, 
   Container, 
@@ -45,7 +45,7 @@ import {
   ArrowForward
 } from '@mui/icons-material';
 
-const FeatureCard = ({ feature, index }) => {
+const FeatureCard = memo(({ feature, index }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [progress, setProgress] = useState(0);
   
@@ -57,7 +57,7 @@ const FeatureCard = ({ feature, index }) => {
     primaryLight: 'brand.primaryLight'
   });
 
-  const getFeatureIcon = (title) => {
+  const { FeatureIcon, featureColor } = useMemo(() => {
     const iconMap = {
       "Innovation in Bio-IT": Science,
       "Proven Impact": TrendingUp,
@@ -68,10 +68,7 @@ const FeatureCard = ({ feature, index }) => {
       "Sustainable Solutions": Nature,
       "Expert Team": School
     };
-    return iconMap[title] || Science;
-  };
 
-  const getFeatureColor = (title) => {
     const colorMap = {
       "Innovation in Bio-IT": "#8B5CF6",
       "Proven Impact": "#10B981",
@@ -82,20 +79,22 @@ const FeatureCard = ({ feature, index }) => {
       "Sustainable Solutions": "#84CC16",
       "Expert Team": "#F97316"
     };
-    return colorMap[title] || themeColors.primary;
-  };
 
-  const FeatureIcon = getFeatureIcon(feature.title);
-  const featureColor = getFeatureColor(feature.title);
+    return {
+      FeatureIcon: iconMap[feature.title] || Science,
+      featureColor: colorMap[feature.title] || themeColors.primary
+    };
+  }, [feature.title, themeColors.primary]);
 
   // Animate progress on hover
   useEffect(() => {
     if (isHovered) {
+      const targetScore = feature.score || 95;
       const timer = setInterval(() => {
         setProgress(prev => {
-          if (prev >= (feature.score || 95)) {
+          if (prev >= targetScore) {
             clearInterval(timer);
-            return feature.score || 95;
+            return targetScore;
           }
           return prev + 2;
         });
@@ -105,6 +104,9 @@ const FeatureCard = ({ feature, index }) => {
       setProgress(0);
     }
   }, [isHovered, feature.score]);
+
+  const handleHoverStart = useCallback(() => setIsHovered(true), []);
+  const handleHoverEnd = useCallback(() => setIsHovered(false), []);
 
   return (
     <motion.div
@@ -118,8 +120,8 @@ const FeatureCard = ({ feature, index }) => {
         stiffness: 100
       }}
       whileHover={{ y: -12 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
+      onHoverStart={handleHoverStart}
+      onHoverEnd={handleHoverEnd}
     >
       <Card
         sx={{
@@ -362,9 +364,11 @@ const FeatureCard = ({ feature, index }) => {
       </Card>
     </motion.div>
   );
-};
+});
 
-const CompanyMetric = ({ metric, index }) => {
+FeatureCard.displayName = 'FeatureCard';
+
+const CompanyMetric = memo(({ metric, index }) => {
   const [count, setCount] = useState(0);
   const themeColors = useThemeColors({
     primary: 'brand.primary',
@@ -438,9 +442,11 @@ const CompanyMetric = ({ metric, index }) => {
       </Stack>
     </motion.div>
   );
-};
+});
 
-const FloatingTestimonial = () => {
+CompanyMetric.displayName = 'CompanyMetric';
+
+const FloatingTestimonial = memo(() => {
   const [visible, setVisible] = useState(true);
   const themeColors = useThemeColors({
     primary: 'brand.primary',
@@ -452,6 +458,8 @@ const FloatingTestimonial = () => {
     const timer = setTimeout(() => setVisible(false), 8000);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleClose = useCallback(() => setVisible(false), []);
 
   return (
     <AnimatePresence>
@@ -492,7 +500,7 @@ const FloatingTestimonial = () => {
                     Agricultural Director
                   </Typography>
                 </Box>
-                <IconButton size="small" onClick={() => setVisible(false)}>
+                <IconButton size="small" onClick={handleClose}>
                   ×
                 </IconButton>
               </Box>
@@ -515,9 +523,11 @@ const FloatingTestimonial = () => {
       )}
     </AnimatePresence>
   );
-};
+});
 
-export default function WhyUs() {
+FloatingTestimonial.displayName = 'FloatingTestimonial';
+
+const WhyUs = memo(() => {
   const { colors, isDark } = useTheme();
   
   const themeColors = useThemeColors({
@@ -531,7 +541,29 @@ export default function WhyUs() {
     primaryLight: 'brand.primaryLight'
   });
 
-  const whyUsContent = {
+  // Memoized animation variants
+  const animationVariants = useMemo(() => ({
+    containerVariants: {
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: {
+          staggerChildren: 0.1,
+          delayChildren: 0.2
+        }
+      }
+    },
+    itemVariants: {
+      hidden: { opacity: 0, y: 30 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: "easeOut" }
+      }
+    }
+  }), []);
+
+  const whyUsContent = useMemo(() => ({
     title: "Why Choose Somaticx?",
     subtitle: "Four Pillars of Excellence That Set Us Apart",
     description: "Our unique combination of cutting-edge technology, proven expertise, and unwavering commitment to innovation makes us the trusted partner for bio-industry transformation.",
@@ -603,7 +635,7 @@ export default function WhyUs() {
       { icon: Groups, value: 500, suffix: '+', label: 'Happy Clients', color: '#F59E0B' },
       { icon: Nature, value: 98, suffix: '%', label: 'Sustainability Score', color: '#84CC16' }
     ]
-  };
+  }), []);
 
   return (
     <>
@@ -857,4 +889,8 @@ export default function WhyUs() {
       </Box>
     </>
   );
-}
+});
+
+WhyUs.displayName = 'WhyUs';
+
+export default WhyUs;

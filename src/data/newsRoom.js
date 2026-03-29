@@ -2,42 +2,42 @@ export const newsCategories = [
   {
     id: 'all',
     name: 'All News',
-    icon: '📰',
+    icon: 'Article',
     count: 15,
     color: '#16a34a'
   },
   {
     id: 'product-updates',
     name: 'Product Updates',
-    icon: '🚀',
+    icon: 'Launch',
     count: 6,
     color: '#2563eb'
   },
   {
     id: 'funding',
     name: 'Funding',
-    icon: '💰',
+    icon: 'AttachMoney',
     count: 2,
     color: '#059669'
   },
   {
     id: 'partnerships',
     name: 'Partnerships',
-    icon: '🤝',
+    icon: 'Group',
     count: 3,
     color: '#dc2626'
   },
   {
     id: 'awards',
     name: 'Awards',
-    icon: '🏆',
+    icon: 'EmojiEvents',
     count: 2,
     color: '#d97706'
   },
   {
     id: 'press-coverage',
     name: 'Press Coverage',
-    icon: '📺',
+    icon: 'Campaign',
     count: 2,
     color: '#7c3aed'
   }
@@ -50,7 +50,7 @@ export const newsArticles = [
     excerpt: 'Leading biotech startup secures significant funding to expand R&D capabilities and accelerate product development in agricultural and livestock technology.',
     category: 'Funding',
     categoryId: 'funding',
-    categoryIcon: '💰',
+    categoryIcon: 'AttachMoney',
     date: '2024-12-15',
     author: 'Press Team',
     readTime: '3 min',
@@ -84,7 +84,7 @@ export const newsArticles = [
     excerpt: 'Enhanced AI capabilities, improved sensor accuracy, and new predictive health analytics now available to all customers.',
     category: 'Product Updates',
     categoryId: 'product-updates',
-    categoryIcon: '🚀',
+    categoryIcon: 'Launch',
     date: '2024-12-01',
     author: 'Product Team',
     readTime: '4 min',
@@ -110,7 +110,7 @@ export const newsArticles = [
     excerpt: 'Recognition for outstanding innovation in agricultural technology and commitment to sustainable farming practices.',
     category: 'Awards',
     categoryId: 'awards',
-    categoryIcon: '🏆',
+    categoryIcon: 'EmojiEvents',
     date: '2024-11-20',
     author: 'Communications Team',
     readTime: '2 min',
@@ -129,7 +129,7 @@ export const newsArticles = [
     excerpt: 'Collaboration to advance research in precision agriculture and livestock management technologies.',
     category: 'Partnerships',
     categoryId: 'partnerships',
-    categoryIcon: '🤝',
+    categoryIcon: 'Group',
     date: '2024-11-10',
     author: 'Partnership Team',
     readTime: '3 min',
@@ -154,7 +154,7 @@ export const newsArticles = [
     excerpt: 'In-depth coverage of how Somaticx is leading the digital transformation of agriculture and livestock industries.',
     category: 'Press Coverage',
     categoryId: 'press-coverage',
-    categoryIcon: '📺',
+    categoryIcon: 'Campaign',
     date: '2024-10-25',
     author: 'External Coverage',
     readTime: '5 min',

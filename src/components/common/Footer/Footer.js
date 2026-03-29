@@ -1,5 +1,6 @@
 'use client';
 
+import { strings } from '@/data/strings';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 import { motion } from 'framer-motion';
@@ -158,42 +159,42 @@ export default function Footer() {
 
   const footerSections = {
     company: {
-      title: 'Company',
+      title: strings.footer.links.company.title,
       links: [
-        { name: 'About Us', href: '/about' },
-        { name: 'Careers', href: '/careers' },
-        { name: 'Partners', href: '/partners' },
-        { name: 'Newsroom', href: '/newsroom' },
-        { name: 'Contact', href: '/contact' }
+        { name: strings.footer.links.company.items.about, href: '/about' },
+        { name: strings.footer.links.company.items.careers, href: '/careers' },
+        { name: strings.footer.links.company.items.partners, href: '/partners' },
+        { name: strings.footer.links.company.items.newsroom, href: '/newsroom' },
+        { name: strings.footer.links.company.items.contact, href: '/contact' }
       ]
     },
     solutions: {
-      title: 'Solutions',
+      title: strings.footer.links.solutions.title,
       links: [
-        { name: 'Services', href: '/services' },
-        { name: 'Portfolio', href: '/portfolio' },
-        { name: 'Live Demo', href: '/demo' },
-        { name: 'Documentation', href: '/docs' },
-        { name: 'API', href: '/api' }
+        { name: strings.footer.links.solutions.items.services, href: '/services' },
+        { name: strings.footer.links.solutions.items.portfolio, href: '/portfolio' },
+        { name: strings.footer.links.solutions.items.demo, href: '/demo' },
+        { name: strings.footer.links.solutions.items.documentation, href: '/docs' },
+        { name: strings.footer.links.solutions.items.api, href: '/api' }
       ]
     },
     resources: {
-      title: 'Resources',
+      title: strings.footer.links.resources.title,
       links: [
-        { name: 'Blog', href: '/blog' },
-        { name: 'Support Center', href: '/support' },
-        { name: 'FAQ', href: '/faq' },
-        { name: 'Statistics', href: '/statistics' },
-        { name: 'Downloads', href: '/downloads' }
+        { name: strings.footer.links.resources.items.blog, href: '/blog' },
+        { name: strings.footer.links.resources.items.support, href: '/support' },
+        { name: strings.footer.links.resources.items.faq, href: '/faq' },
+        { name: strings.footer.links.resources.items.statistics, href: '/statistics' },
+        { name: strings.footer.links.resources.items.downloads, href: '/downloads' }
       ]
     },
     legal: {
-      title: 'Legal',
+      title: strings.footer.links.legal.title,
       links: [
-        { name: 'Privacy Policy', href: '/privacy' },
-        { name: 'Terms of Service', href: '/terms' },
-        { name: 'Certificates', href: '/certificates' },
-        { name: 'Compliance', href: '/compliance' }
+        { name: strings.footer.links.legal.items.privacy, href: '/privacy' },
+        { name: strings.footer.links.legal.items.terms, href: '/terms' },
+        { name: strings.footer.links.legal.items.certificates, href: '/certificates' },
+        { name: strings.footer.links.legal.items.compliance, href: '/compliance' }
       ]
     }
   };
@@ -206,16 +207,16 @@ export default function Footer() {
   ];
 
   const achievements = [
-    { icon: EmojiEvents, title: "Industry Leader", description: "Bio-Tech Innovation Awards 2024" },
-    { icon: Verified, title: "Certified", description: "ISO 27001 & SOC 2 Compliant" },
-    { icon: Star, title: "5-Star Rated", description: "Customer Satisfaction" },
-    { icon: TrendingUp, title: "98% Uptime", description: "Reliable Performance" }
+    { icon: EmojiEvents, title: strings.footer.achievements.items.industryLeader.title, description: strings.footer.achievements.items.industryLeader.description },
+    { icon: Verified, title: strings.footer.achievements.items.certified.title, description: strings.footer.achievements.items.certified.description },
+    { icon: Star, title: strings.footer.achievements.items.rated.title, description: strings.footer.achievements.items.rated.description },
+    { icon: TrendingUp, title: strings.footer.achievements.items.uptime.title, description: strings.footer.achievements.items.uptime.description }
   ];
 
   const contactInfo = [
-    { icon: Email, text: "hello@somaticx.com", href: "mailto:hello@somaticx.com" },
-    { icon: Phone, text: "+1 (555) 123-4567", href: "tel:+15551234567" },
-    { icon: LocationOn, text: "San Francisco, CA", href: "#" }
+    { icon: Email, text: strings.footer.company.contact.email, href: `mailto:${strings.footer.company.contact.email}` },
+    { icon: Phone, text: strings.footer.company.contact.phone, href: "tel:+15551234567" },
+    { icon: LocationOn, text: strings.footer.company.contact.address, href: "#" }
   ];
 
   return (
@@ -257,7 +258,7 @@ export default function Footer() {
                 mb: 4
               }}
             >
-              Trusted Excellence
+{strings.footer.achievements.title}
             </Typography>
           </motion.div>
           
@@ -309,7 +310,7 @@ export default function Footer() {
                       WebkitTextFillColor: 'transparent'
                     }}
                   >
-                    Somaticx
+                    {strings.app.companyName}
                   </Typography>
                 </Box>
 
@@ -322,8 +323,7 @@ export default function Footer() {
                     maxWidth: '400px'
                   }}
                 >
-                  Transforming bio-industries through intelligent innovation in agriculture and livestock technology. 
-                  Building sustainable solutions for a better tomorrow.
+                  {strings.footer.company.description}
                 </Typography>
 
                 {/* Contact Info */}
@@ -430,12 +430,12 @@ export default function Footer() {
                 variant="body2"
                 sx={{ color: themeColors.textMuted, fontSize: '0.875rem' }}
               >
-                © 2025 Somaticx. All rights reserved.
+{strings.footer.bottom.copyright}
               </Typography>
               
               <Stack direction="row" alignItems="center" spacing={2}>
                 <Chip
-                  label="Built with 💚 for Bio-Industries"
+                  label={strings.footer.bottom.tagline}
                   size="small"
                   sx={{
                     background: 'rgba(255, 255, 255, 0.06)',

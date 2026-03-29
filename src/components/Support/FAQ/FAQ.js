@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { strings } from '@/data/strings';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -133,7 +134,7 @@ export default function FAQ() {
           transition={{ duration: 0.8 }}
         >
           <Chip
-            label="Frequently Asked Questions"
+            label={strings.faq.title}
             icon={<QuestionMark />}
             sx={{
               background: `${themeColors.brand}20`,
@@ -160,7 +161,7 @@ export default function FAQ() {
               WebkitTextFillColor: 'transparent'
             }}
           >
-            Quick Answers to Common Questions
+{strings.faq.subtitle}
           </Typography>
 
           <Typography
@@ -173,7 +174,7 @@ export default function FAQ() {
               mx: 'auto'
             }}
           >
-            Find instant answers to help you get the most out of Somaticx solutions
+{strings.faq.description}
           </Typography>
         </motion.div>
       </Box>
@@ -416,7 +417,7 @@ export default function FAQ() {
                     fontSize: { xs: '1.75rem', sm: '2.125rem' }
                   }}
                 >
-                  Still Have Questions?
+{strings.faq.callToAction.title}
                 </Typography>
                 
                 <Typography
@@ -429,8 +430,7 @@ export default function FAQ() {
                     mx: 'auto'
                   }}
                 >
-                  Our expert support team is ready to help you succeed with personalized assistance 
-                  and in-depth knowledge of your Somaticx solutions.
+{strings.faq.callToAction.description}
                 </Typography>
 
                 <Stack 
@@ -459,7 +459,7 @@ export default function FAQ() {
                       }
                     }}
                   >
-                    Contact Support Team
+{strings.faq.callToAction.buttons.contactSupport}
                   </Button>
                   
                   <Button
@@ -484,7 +484,7 @@ export default function FAQ() {
                       }
                     }}
                   >
-                    Request Demo
+{strings.faq.callToAction.buttons.requestDemo}
                   </Button>
                 </Stack>
               </Stack>

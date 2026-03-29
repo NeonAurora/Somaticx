@@ -1,5 +1,6 @@
 'use client';
 
+import { strings } from '@/data/strings';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 import { motion } from 'framer-motion';
@@ -47,30 +48,30 @@ export default function LiveDemoSection() {
 
   const demoOptions = [
     {
-      type: 'Personal Demo',
+      type: strings.demo.liveDemos.types.personal.title,
       icon: Person,
-      duration: '30 minutes',
+      duration: strings.demo.liveDemos.types.personal.duration,
       color: '#10B981', // Success green
-      description: 'One-on-one demonstration tailored to your specific needs and use cases.',
-      features: ['Personalized walkthrough', 'Q&A session', 'Custom scenarios', 'Follow-up materials'],
+      description: strings.demo.liveDemos.types.personal.description,
+      features: strings.demo.liveDemos.types.personal.features,
       recommended: false
     },
     {
-      type: 'Group Demo',
+      type: strings.demo.liveDemos.types.group.title,
       icon: Group,
-      duration: '45 minutes',
+      duration: strings.demo.liveDemos.types.group.duration,
       color: '#3B82F6', // Info blue
-      description: 'Perfect for teams and organizations looking to evaluate our solutions.',
-      features: ['Team-focused presentation', 'Multiple use cases', 'Group discussion', 'Implementation planning'],
+      description: strings.demo.liveDemos.types.group.description,
+      features: strings.demo.liveDemos.types.group.features,
       recommended: true
     },
     {
-      type: 'Technical Deep Dive',
+      type: strings.demo.liveDemos.types.technical.title,
       icon: Build,
-      duration: '60 minutes',
+      duration: strings.demo.liveDemos.types.technical.duration,
       color: '#8B5CF6', // Purple
-      description: 'In-depth technical demonstration for developers and technical teams.',
-      features: ['API walkthrough', 'Integration examples', 'Technical architecture', 'Development support'],
+      description: strings.demo.liveDemos.types.technical.description,
+      features: strings.demo.liveDemos.types.technical.features,
       recommended: false
     }
   ];
@@ -84,7 +85,7 @@ export default function LiveDemoSection() {
     >
       <Box sx={{ textAlign: 'center', mb: 8 }}>
         <Chip
-          label="Live Demonstrations"
+          label={strings.demo.liveDemos.title}
           icon={<VideoCall />}
           sx={{
             background: `${themeColors.brand}20`,
@@ -111,7 +112,7 @@ export default function LiveDemoSection() {
             WebkitTextFillColor: 'transparent'
           }}
         >
-          Schedule a Live Demo
+{strings.demo.liveDemos.subtitle}
         </Typography>
 
         <Typography
@@ -124,7 +125,7 @@ export default function LiveDemoSection() {
             mx: 'auto'
           }}
         >
-          Get a personalized demonstration of our solutions tailored to your needs
+{strings.demo.liveDemos.description}
         </Typography>
       </Box>
     </motion.div>
@@ -175,7 +176,7 @@ export default function LiveDemoSection() {
         >
           {option.recommended && (
             <Chip
-              label="Most Popular"
+              label={strings.demo.liveDemos.popular}
               size="small"
               sx={{
                 position: 'absolute',
@@ -299,7 +300,7 @@ export default function LiveDemoSection() {
                 }
               }}
             >
-              Book {option.type}
+{strings.demo.liveDemos.buttons.book} {option.type}
             </Button>
           </CardContent>
         </Card>
@@ -355,7 +356,7 @@ export default function LiveDemoSection() {
               fontSize: { xs: '1.5rem', sm: '1.75rem' }
             }}
           >
-            Not Sure Which Demo Is Right for You?
+{strings.demo.liveDemos.callToAction.title}
           </Typography>
           
           <Typography
@@ -367,7 +368,7 @@ export default function LiveDemoSection() {
               maxWidth: 500
             }}
           >
-            Let our experts help you choose the best demonstration format for your specific needs and goals.
+{strings.demo.liveDemos.callToAction.description}
           </Typography>
 
           <Stack 
@@ -396,7 +397,7 @@ export default function LiveDemoSection() {
                 }
               }}
             >
-              Contact Our Team
+{strings.demo.liveDemos.callToAction.buttons.contactTeam}
             </Button>
             
             <Button
@@ -420,7 +421,7 @@ export default function LiveDemoSection() {
                 }
               }}
             >
-              Quick Consultation
+{strings.demo.liveDemos.callToAction.buttons.quickConsultation}
             </Button>
           </Stack>
         </Stack>

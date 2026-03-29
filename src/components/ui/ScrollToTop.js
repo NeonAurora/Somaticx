@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
+import { strings } from '@/data/strings';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 export const ScrollToTop = () => {
@@ -41,6 +42,7 @@ export const ScrollToTop = () => {
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 z-50 p-3 rounded-full shadow-lg backdrop-blur-md border"
+          aria-label={strings.ui.buttons.scrollToTop}
           style={{
             backgroundColor: `${backgroundColor}90`,
             borderColor: primaryColor,

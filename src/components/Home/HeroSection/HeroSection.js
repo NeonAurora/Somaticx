@@ -23,6 +23,7 @@ import {
   ChevronRight,
 } from '@mui/icons-material';
 import { useState, useEffect } from 'react';
+import { strings } from '@/data/strings';
 
 const AnimatedStatistic = ({ value, label, icon: Icon, delay = 0 }) => {
   const [animatedValue, setAnimatedValue] = useState(0);
@@ -139,23 +140,23 @@ export default function HeroSection() {
   });
 
   const heroContent = {
-    eyebrow: "Transforming Lives Through Technology",
-    headline: "Intelligent Solutions for Agricultural & Livestock Excellence",
-    subheadline: "Empowering Pet Owners, Livestock Managers & Crop Farmers",
-    description: "We develop cutting-edge software solutions that revolutionize animal care, crop management, and agricultural operations. Our technology bridges the gap between traditional farming wisdom and modern innovation.",
-    primaryCTA: "Explore Our Solutions",
-    secondaryCTA: "Watch Demo",
+    eyebrow: strings.hero.home.eyebrow,
+    headline: strings.hero.home.headline,
+    subheadline: strings.hero.home.subheadline,
+    description: strings.hero.home.description,
+    primaryCTA: strings.hero.home.cta.primary,
+    secondaryCTA: strings.hero.home.cta.secondary,
     trustBadges: [
-      { label: "Eco-Friendly", icon: Nature },
-      { label: "Life-Focused", icon: Pets },
-      { label: "Sustainable", icon: Agriculture }
+      { label: strings.hero.home.trustBadges.ecoFriendly, icon: Nature },
+      { label: strings.hero.home.trustBadges.lifeFocused, icon: Pets },
+      { label: strings.hero.home.trustBadges.sustainable, icon: Agriculture }
     ]
   };
 
   const statistics = [
-    { value: 50000, label: "Animals Monitored", icon: Pets },
-    { value: 1200, label: "Farms Enhanced", icon: Agriculture },
-    { value: 95, label: "Success Rate", icon: TrendingUp }
+    { value: 50000, label: strings.hero.home.statistics.animalsMonitored, icon: Pets },
+    { value: 1200, label: strings.hero.home.statistics.farmsEnhanced, icon: Agriculture },
+    { value: 95, label: strings.hero.home.statistics.successRate, icon: TrendingUp }
   ];
 
   return (
@@ -184,13 +185,14 @@ export default function HeroSection() {
       }}
     >
       <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
-        <Stack spacing={6} alignItems="center" textAlign="center">
+        <Stack spacing={6} alignItems="center">
           
           {/* Eyebrow Text */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
           >
             <Chip
               label={heroContent.eyebrow}
@@ -208,7 +210,7 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Main Headlines */}
-          <Stack spacing={3} sx={{ maxWidth: '900px' }}>
+          <Stack spacing={4} sx={{ maxWidth: '1000px', width: '100%', textAlign: 'center' }}>
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -217,15 +219,17 @@ export default function HeroSection() {
               <Typography
                 variant="h1"
                 sx={{
-                  fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem', lg: '5rem' },
-                  fontWeight: 800,
-                  lineHeight: 1.1,
+                  fontSize: { xs: '2.8rem', sm: '4rem', md: '5rem', lg: '6rem' },
+                  fontWeight: 900,
+                  lineHeight: { xs: 1.1, md: 1.05 },
                   color: themeColors.text,
-                  background: `linear-gradient(135deg, ${themeColors.text} 0%, ${themeColors.primary} 100%)`,
+                  background: `linear-gradient(135deg, ${themeColors.text} 0%, ${themeColors.primary} 50%, ${themeColors.primaryLight} 100%)`,
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  textAlign: 'center'
+                  textAlign: 'center',
+                  letterSpacing: '-0.02em',
+                  mb: 2
                 }}
               >
                 {heroContent.headline}
@@ -240,10 +244,12 @@ export default function HeroSection() {
               <Typography
                 variant="h2"
                 sx={{
-                  fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' },
+                  fontSize: { xs: '1.35rem', sm: '1.65rem', md: '1.9rem', lg: '2.1rem' },
                   fontWeight: 600,
                   color: themeColors.primary,
-                  mb: 2
+                  mb: 3,
+                  textAlign: 'center',
+                  letterSpacing: '-0.01em'
                 }}
               >
                 {heroContent.subheadline}
@@ -258,11 +264,13 @@ export default function HeroSection() {
               <Typography
                 variant="body1"
                 sx={{
-                  fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
-                  lineHeight: 1.6,
+                  fontSize: { xs: '1.1rem', sm: '1.25rem', md: '1.35rem' },
+                  lineHeight: 1.65,
                   color: themeColors.textSecondary,
-                  maxWidth: '700px',
-                  mx: 'auto'
+                  maxWidth: '800px',
+                  mx: 'auto',
+                  textAlign: 'center',
+                  fontWeight: 400
                 }}
               >
                 {heroContent.description}
@@ -449,7 +457,7 @@ export default function HeroSection() {
                       mb: 1
                     }}
                   >
-                    Sustainable Innovation
+                    {strings.hero.home.feature.title}
                   </Typography>
                   <Typography 
                     variant="body2" 
@@ -458,7 +466,7 @@ export default function HeroSection() {
                       lineHeight: 1.6
                     }}
                   >
-                    Every solution we create prioritizes environmental sustainability and the wellbeing of animals and ecosystems.
+                    {strings.hero.home.feature.description}
                   </Typography>
                 </Stack>
               </CardContent>

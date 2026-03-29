@@ -7,7 +7,6 @@ import ClientOnly from '@/components/common/ClientOnly/ClientOnly';
 const ProjectDetailHero = dynamic(
   () => import('@/components/Portfolio/ProjectDetailHero/ProjectDetailHero'),
   {
-    ssr: false,
     loading: () => (
       <div
         style={{
@@ -20,8 +19,7 @@ const ProjectDetailHero = dynamic(
 );
 
 const ProjectDetailContent = dynamic(
-  () => import('@/components/Portfolio/ProjectDetailContent/ProjectDetailContent'),
-  { ssr: false }
+  () => import('@/components/Portfolio/ProjectDetailContent/ProjectDetailContent')
 );
 
 export default function ProjectDetailClient({ project }) {

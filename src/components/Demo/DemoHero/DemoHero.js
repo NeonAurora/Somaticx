@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { strings } from '@/data/strings';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 import { motion } from 'framer-motion';
@@ -167,10 +168,10 @@ export default function DemoHero() {
   });
 
   const stats = [
-    { value: '25+', label: 'Video Tutorials', icon: VideoLibrary },
-    { value: '4', label: 'Product Categories', icon: Category },
-    { value: '50k+', label: 'Video Views', icon: Visibility },
-    { value: '24/7', label: 'Demo Access', icon: AccessTime }
+    { value: strings.pages.demo.statistics.tutorials.value, label: strings.pages.demo.statistics.tutorials.label, icon: VideoLibrary },
+    { value: strings.pages.demo.statistics.categories.value, label: strings.pages.demo.statistics.categories.label, icon: Category },
+    { value: strings.pages.demo.statistics.views.value, label: strings.pages.demo.statistics.views.label, icon: Visibility },
+    { value: strings.pages.demo.statistics.access.value, label: strings.pages.demo.statistics.access.label, icon: AccessTime }
   ];
 
   return (
@@ -211,7 +212,7 @@ export default function DemoHero() {
               <Stack spacing={4}>
                 <Box>
                   <Chip
-                    label="Live Demos & Video Tutorials"
+                    label={strings.demo.hero.statusChip}
                     icon={<OndemandVideo />}
                     sx={{
                       background: `${themeColors.brand}20`,
@@ -236,7 +237,7 @@ export default function DemoHero() {
                       WebkitTextFillColor: 'transparent'
                     }}
                   >
-                    See Our Solutions in Action
+{strings.demo.hero.title}
                   </Typography>
 
                   <Typography
@@ -248,7 +249,7 @@ export default function DemoHero() {
                       fontSize: { xs: '1.25rem', sm: '1.5rem' }
                     }}
                   >
-                    Interactive demos and comprehensive tutorials
+{strings.demo.hero.subtitle}
                   </Typography>
 
                   <Typography
@@ -261,9 +262,7 @@ export default function DemoHero() {
                       maxWidth: '600px'
                     }}
                   >
-                    Explore comprehensive video tutorials and live demonstrations of our 
-                    bio-industry technology solutions. Learn how to maximize your operations 
-                    with step-by-step guides and real-world use cases.
+{strings.demo.hero.description}
                   </Typography>
                 </Box>
 
@@ -290,7 +289,7 @@ export default function DemoHero() {
                       }
                     }}
                   >
-                    Schedule Live Demo
+{strings.demo.hero.buttons.scheduleLiveDemo}
                   </Button>
                   
                   <Button
@@ -315,7 +314,7 @@ export default function DemoHero() {
                       }
                     }}
                   >
-                    Browse Tutorials
+{strings.demo.hero.buttons.browseTutorials}
                   </Button>
                 </Stack>
               </Stack>
@@ -391,7 +390,7 @@ export default function DemoHero() {
                     fontSize: { xs: '1.75rem', sm: '2.125rem' }
                   }}
                 >
-                  Most Popular Demo
+{strings.demo.hero.featuredDemo.title}
                 </Typography>
                 
                 <Typography
@@ -404,10 +403,7 @@ export default function DemoHero() {
                     mx: 'auto'
                   }}
                 >
-                  <Typography>
-                    {"\"Smart Farm Management Dashboard\" - Learn how to monitor your entire operation from a single, intuitive interface with real-time data and automated insights."}
-                  </Typography>
-
+                  {strings.demo.hero.featuredDemo.description}
                 </Typography>
 
                 <Stack 
@@ -435,7 +431,7 @@ export default function DemoHero() {
                       }
                     }}
                   >
-                    Watch Demo
+{strings.demo.hero.featuredDemo.buttons.watchDemo}
                   </Button>
                   
                   <Button
@@ -459,7 +455,7 @@ export default function DemoHero() {
                       }
                     }}
                   >
-                    Try Interactive Demo
+{strings.demo.hero.featuredDemo.buttons.tryInteractiveDemo}
                   </Button>
                 </Stack>
               </Stack>

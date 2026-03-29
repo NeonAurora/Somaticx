@@ -3,14 +3,15 @@ import { projects } from '@/data/projects';
 import { notFound } from 'next/navigation';
 import ProjectDetailClient from './ProjectDetailClient';
 
+// Generate static params for all projects at build time
 export async function generateStaticParams() {
   return projects.map((project) => ({
-    projectId: project.id
+    projectId: project.id,
   }));
 }
 
-export default function ProjectDetailPage({ params }) {
-  const { projectId } = params;
+export default async function ProjectDetailPage({ params }) {
+  const { projectId } = await params;
   const project = projects.find((p) => p.id === projectId);
 
   if (!project) {
