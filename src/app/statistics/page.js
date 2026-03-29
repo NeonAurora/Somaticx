@@ -3,6 +3,7 @@
 import Layout from '@/components/common/Layout/Layout';
 import StatisticsHero from '@/components/Statistics/StatisticsHero/StatisticsHero';
 import MetricsGrid from '@/components/Statistics/MetricsGrid/MetricsGrid';
+import { strings } from '@/data/strings';
 import { 
   companyMetrics, 
   industryImpact, 
@@ -38,20 +39,20 @@ export default function StatisticsPage() {
       
       <MetricsGrid 
         metrics={companyMetrics}
-        title="Company Performance Metrics"
-        subtitle="Key performance indicators showcasing our growth and operational excellence"
+        title={strings.pages.statistics.sections.companyMetrics.title}
+        subtitle={strings.pages.statistics.sections.companyMetrics.subtitle}
       />
       
       <MetricsGrid 
         metrics={industryImpact}
-        title="Industry Impact"
-        subtitle="Measurable improvements delivered to the agricultural and livestock industries"
+        title={strings.pages.statistics.sections.industryImpact.title}
+        subtitle={strings.pages.statistics.sections.industryImpact.subtitle}
       />
       
       <MetricsGrid 
         metrics={technologyStats}
-        title="Technology Performance"
-        subtitle="Technical specifications and performance metrics of our platform"
+        title={strings.pages.statistics.sections.technologyPerformance.title}
+        subtitle={strings.pages.statistics.sections.technologyPerformance.subtitle}
       />
 
       {/* Regional Distribution */}
@@ -77,7 +78,7 @@ export default function StatisticsPage() {
                 WebkitTextFillColor: 'transparent'
               }}
             >
-              Global Reach
+{strings.pages.statistics.sections.globalReach.title}
             </Typography>
             <Typography 
               variant="h6"
@@ -89,7 +90,7 @@ export default function StatisticsPage() {
                 lineHeight: 1.6
               }}
             >
-              Our customer distribution across different regions worldwide
+{strings.pages.statistics.sections.globalReach.subtitle}
             </Typography>
           </Box>
 
@@ -210,7 +211,7 @@ export default function StatisticsPage() {
                 WebkitTextFillColor: 'transparent'
               }}
             >
-              Customer Satisfaction
+{strings.pages.statistics.sections.customerSatisfaction.title}
             </Typography>
             <Typography 
               variant="h6"
@@ -222,7 +223,7 @@ export default function StatisticsPage() {
                 lineHeight: 1.6
               }}
             >
-              Customer feedback and satisfaction ratings across key service areas
+{strings.pages.statistics.sections.customerSatisfaction.subtitle}
             </Typography>
           </Box>
 

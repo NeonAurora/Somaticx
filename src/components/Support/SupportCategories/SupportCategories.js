@@ -1,5 +1,6 @@
 'use client';
 
+import { strings } from '@/data/strings';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 import { motion } from 'framer-motion';
@@ -45,7 +46,7 @@ const SectionHeader = () => {
         transition={{ duration: 0.8 }}
       >
         <Chip
-          label="Support Categories"
+          label={strings.support.categories.title}
           icon={<Category />}
           sx={{
             background: `${themeColors.brand}20`,
@@ -72,7 +73,7 @@ const SectionHeader = () => {
             WebkitTextFillColor: 'transparent'
           }}
         >
-          Browse by Category
+{strings.support.categories.subtitle}
         </Typography>
 
         <Typography
@@ -85,7 +86,7 @@ const SectionHeader = () => {
             mx: 'auto'
           }}
         >
-          Find the help you need quickly with our organized support resources
+{strings.support.categories.description}
         </Typography>
       </motion.div>
     </Box>
@@ -106,76 +107,46 @@ export default function SupportCategories() {
 
   const supportCategories = [
     {
-      title: 'Getting Started',
-      description: 'Setup guides, initial configuration, and first steps with your Somaticx solutions.',
+      title: strings.support.categories.gettingStarted.title,
+      description: strings.support.categories.gettingStarted.description,
       icon: RocketLaunch,
       color: '#10B981', // Success green
-      links: [
-        'Installation Guide',
-        'Quick Start Tutorial',
-        'Account Setup',
-        'Initial Configuration'
-      ]
+      links: strings.support.categories.gettingStarted.links
     },
     {
-      title: 'Hardware Support',
-      description: 'Troubleshooting, maintenance, and optimization for all Somaticx hardware devices.',
+      title: strings.support.categories.hardwareSupport.title,
+      description: strings.support.categories.hardwareSupport.description,
       icon: Settings,
       color: '#F59E0B', // Warning amber
-      links: [
-        'Device Troubleshooting',
-        'Sensor Calibration',
-        'Connectivity Issues',
-        'Maintenance Schedules'
-      ]
+      links: strings.support.categories.hardwareSupport.links
     },
     {
-      title: 'Software Help',
-      description: 'Application features, dashboard navigation, and software-related questions.',
+      title: strings.support.categories.softwareHelp.title,
+      description: strings.support.categories.softwareHelp.description,
       icon: Computer,
       color: '#3B82F6', // Info blue
-      links: [
-        'Dashboard Guide',
-        'Feature Documentation',
-        'Mobile App Help',
-        'Data Export'
-      ]
+      links: strings.support.categories.softwareHelp.links
     },
     {
-      title: 'Data & Analytics',
-      description: 'Understanding your data, reports, insights, and analytics features.',
+      title: strings.support.categories.dataAnalytics.title,
+      description: strings.support.categories.dataAnalytics.description,
       icon: Analytics,
       color: themeColors.brand,
-      links: [
-        'Data Interpretation',
-        'Custom Reports',
-        'Analytics Setup',
-        'Export Options'
-      ]
+      links: strings.support.categories.dataAnalytics.links
     },
     {
-      title: 'Integration Support',
-      description: 'API documentation, third-party integrations, and custom development help.',
+      title: strings.support.categories.integration.title,
+      description: strings.support.categories.integration.description,
       icon: Add,
       color: '#8B5CF6', // Purple
-      links: [
-        'API Documentation',
-        'Integration Guides',
-        'Webhook Setup',
-        'Custom Development'
-      ]
+      links: strings.support.categories.integration.links
     },
     {
-      title: 'Billing & Account',
-      description: 'Subscription management, billing questions, and account administration.',
+      title: strings.support.categories.billing.title,
+      description: strings.support.categories.billing.description,
       icon: AccountCircle,
       color: '#EF4444', // Red
-      links: [
-        'Billing Information',
-        'Plan Changes',
-        'Account Settings',
-        'Invoice History'
-      ]
+      links: strings.support.categories.billing.links
     }
   ];
 
@@ -271,7 +242,7 @@ export default function SupportCategories() {
                     fontSize: { xs: '1.75rem', sm: '2.125rem' }
                   }}
                 >
-                  Can't Find What You're Looking For?
+{strings.support.callToAction.title}
                 </Typography>
                 
                 <Typography
@@ -284,8 +255,7 @@ export default function SupportCategories() {
                     mx: 'auto'
                   }}
                 >
-                  Our support team is here to help. Get personalized assistance from our experts 
-                  who know your Somaticx solutions inside and out.
+{strings.support.callToAction.description}
                 </Typography>
 
                 <Stack 
@@ -314,7 +284,7 @@ export default function SupportCategories() {
                       }
                     }}
                   >
-                    Contact Support
+{strings.support.callToAction.buttons.contactSupport}
                   </Button>
                   
                   <Button
@@ -339,7 +309,7 @@ export default function SupportCategories() {
                       }
                     }}
                   >
-                    Request Demo
+{strings.support.callToAction.buttons.requestDemo}
                   </Button>
                 </Stack>
               </Stack>

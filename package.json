@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "TURBOPACK=1 next dev --turbopack",
+    "dev": "next dev --turbopack",
     "dev:webpack": "next dev",
     "build": "next build",
-    "build:analyze": "ANALYZE=true next build",
-    "build:turbo": "TURBOPACK=1 next build",
+    "build:analyze": "next build",
+    "build:turbo": "next build --turbopack",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && next export"
+    "export": "next build"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",

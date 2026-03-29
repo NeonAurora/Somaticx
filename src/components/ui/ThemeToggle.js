@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Sun, Moon } from 'lucide-react';
+import { strings } from '@/data/strings';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
@@ -27,6 +28,7 @@ export const ThemeToggle = ({ className = '' }) => {
         borderColor: borderColor,
         color: textColor,
       }}
+      aria-label={strings.ui.buttons.toggleTheme}
     >
       <motion.div
         animate={{ rotate: theme === 'dark' ? 180 : 0 }}

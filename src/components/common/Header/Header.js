@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors, useNavigationColors } from '@/hooks/useThemeColor';
+import { strings } from '@/data/strings';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   AppBar, 
@@ -90,7 +91,7 @@ const LogoAnimation = ({ isDark }) => {
           letterSpacing: '-0.02em'
         }}
       >
-        Somaticx
+{strings.app.companyName}
       </Typography>
     </motion.div>
   );
@@ -199,21 +200,21 @@ export default function Header() {
 
   // Main navigation items (5 items as requested)
   const mainNavigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '/services' },
-    { name: 'Support', href: '/support' },
-    { name: 'Newsroom', href: '/newsroom' },
-    { name: 'About', href: '/about' },
+    { name: strings.navigation.main.home, href: '/' },
+    { name: strings.navigation.main.services, href: '/services' },
+    { name: strings.navigation.main.support, href: '/support' },
+    { name: strings.navigation.main.newsroom, href: '/newsroom' },
+    { name: strings.navigation.main.about, href: '/about' },
   ];
 
   // Secondary navigation items for dropdown
   const secondaryNavigation = [
-    { name: 'Portfolio', href: '/portfolio' },
-    { name: 'Partners', href: '/partners' },
-    { name: 'Demo', href: '/demo' },
-    { name: 'Statistics', href: '/statistics' },
-    { name: 'Careers', href: '/careers' },
-    { name: 'Blog', href: '/blog' },
+    { name: strings.navigation.secondary.portfolio, href: '/portfolio' },
+    { name: strings.navigation.secondary.partners, href: '/partners' },
+    { name: strings.navigation.secondary.demo, href: '/demo' },
+    { name: strings.navigation.secondary.statistics, href: '/statistics' },
+    { name: strings.navigation.secondary.careers, href: '/careers' },
+    { name: strings.navigation.secondary.blog, href: '/blog' },
   ];
 
   // All navigation for mobile
@@ -314,7 +315,7 @@ export default function Header() {
                         }
                       }}
                     >
-                      More
+{strings.navigation.actions.more}
                     </Button>
                   </motion.div>
                 </Stack>
@@ -335,7 +336,7 @@ export default function Header() {
                   }}
                 >
                   <Chip
-                    label="Live"
+label={strings.navigation.status.live}
                     size="small"
                     sx={{
                       background: `linear-gradient(135deg, ${themeColors.primary}, ${themeColors.primary}CC)`,
@@ -452,7 +453,7 @@ export default function Header() {
                 fontSize: '0.875rem'
               }}
             >
-              Transforming Bio-Industries
+{strings.app.tagline}
             </Typography>
           </Box>
         </Box>

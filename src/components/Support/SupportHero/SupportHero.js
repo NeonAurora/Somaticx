@@ -1,5 +1,6 @@
 'use client';
 
+import { strings } from '@/data/strings';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 import { motion } from 'framer-motion';
@@ -203,7 +204,7 @@ const SearchSection = () => {
       >
         <Stack direction="row" spacing={2} alignItems="center">
           <InputBase
-            placeholder="Search for help articles, tutorials, or documentation..."
+            placeholder={strings.support.hero.searchPlaceholder}
             sx={{
               flex: 1,
               color: themeColors.text,
@@ -250,10 +251,10 @@ export default function SupportHero() {
   });
 
   const stats = [
-    { value: '24/7', label: 'Support Available', icon: Support },
-    { value: '<2hrs', label: 'Average Response Time', icon: AccessTime },
-    { value: '98%', label: 'Customer Satisfaction', icon: ThumbUp },
-    { value: '500+', label: 'Help Articles', icon: Article }
+    { value: strings.pages.support.statistics.support247.value, label: strings.pages.support.statistics.support247.label, icon: Support },
+    { value: strings.pages.support.statistics.responseTime.value, label: strings.pages.support.statistics.responseTime.label, icon: AccessTime },
+    { value: strings.pages.support.statistics.satisfaction.value, label: strings.pages.support.statistics.satisfaction.label, icon: ThumbUp },
+    { value: strings.pages.support.statistics.articles.value, label: strings.pages.support.statistics.articles.label, icon: Article }
   ];
 
   return (
@@ -294,7 +295,7 @@ export default function SupportHero() {
               <Stack spacing={4}>
                 <Box>
                   <Chip
-                    label="24/7 Customer Support"
+                    label={strings.support.hero.statusChip}
                     icon={<HeadsetMic />}
                     sx={{
                       background: `${themeColors.brand}20`,
@@ -319,7 +320,7 @@ export default function SupportHero() {
                       WebkitTextFillColor: 'transparent'
                     }}
                   >
-                    How Can We Help?
+{strings.support.hero.title}
                   </Typography>
 
                   <Typography
@@ -331,7 +332,7 @@ export default function SupportHero() {
                       fontSize: { xs: '1.25rem', sm: '1.5rem' }
                     }}
                   >
-                    Get the support you need to succeed
+{strings.support.hero.subtitle}
                   </Typography>
 
                   <Typography
@@ -344,8 +345,7 @@ export default function SupportHero() {
                       maxWidth: '600px'
                     }}
                   >
-                    Our dedicated support team is here to help you get the most out of your 
-                    Somaticx solutions. Find answers, get help, or connect with our experts.
+{strings.support.hero.description}
                   </Typography>
                 </Box>
 
@@ -374,7 +374,7 @@ export default function SupportHero() {
                       }
                     }}
                   >
-                    Contact Support
+{strings.support.hero.buttons.contactSupport}
                   </Button>
                   
                   <Button
@@ -399,7 +399,7 @@ export default function SupportHero() {
                       }
                     }}
                   >
-                    Browse Documentation
+{strings.support.hero.buttons.browseDocumentation}
                   </Button>
                 </Stack>
               </Stack>

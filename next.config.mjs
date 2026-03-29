@@ -6,6 +6,12 @@ const nextConfig = {
      * - Use `npm run dev:webpack` for traditional Webpack builds
      * - Automatic detection prevents conflicts between build systems
      */
+    // Enable static export for GitHub Pages
+    output: 'export',
+
+    // Base path for GitHub Pages (uncomment and set your repo name if not using custom domain)
+    // basePath: '/somaticx-portfolio',
+
     // Enable experimental features for better performance
     experimental: {
         optimizePackageImports: [
@@ -58,8 +64,9 @@ const nextConfig = {
     // Enable compression
     compress: true,
     
-    // Optimize images
+    // Optimize images (unoptimized for static export)
     images: {
+        unoptimized: true,
         formats: ['image/avif', 'image/webp'],
         minimumCacheTTL: 60,
         deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],

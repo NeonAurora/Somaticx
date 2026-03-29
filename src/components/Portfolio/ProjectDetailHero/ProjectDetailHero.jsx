@@ -29,7 +29,7 @@ import {
   Bookmark,
   CheckCircle,
   Schedule,
-  Planning,
+  Timeline,
   Agriculture,
   Pets,
   Science,
@@ -80,7 +80,7 @@ const ProjectDetailHero = ({ project }) => {
     switch (status.toLowerCase()) {
       case 'completed': return CheckCircle;
       case 'in progress': return Schedule;
-      case 'planning': return Planning;
+      case 'planning': return Timeline;
       case 'live': return CheckCircle;
       case 'beta': return Schedule;
       default: return Schedule;

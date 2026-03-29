@@ -1,5 +1,6 @@
 'use client';
 
+import { strings } from '@/data/strings';
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
 import { motion } from 'framer-motion';
@@ -41,7 +42,7 @@ export default function DemoFilter({ categories, activeCategory, onCategoryChang
     >
       <Box sx={{ textAlign: 'center', mb: 6 }}>
         <Chip
-          label="Browse Categories"
+          label={strings.demo.filter.title}
           icon={<FilterList />}
           sx={{
             background: `${themeColors.brand}20`,
@@ -68,7 +69,7 @@ export default function DemoFilter({ categories, activeCategory, onCategoryChang
             WebkitTextFillColor: 'transparent'
           }}
         >
-          Browse by Category
+{strings.demo.filter.subtitle}
         </Typography>
 
         <Typography
@@ -81,7 +82,7 @@ export default function DemoFilter({ categories, activeCategory, onCategoryChang
             mx: 'auto'
           }}
         >
-          Find the perfect tutorial for your needs and expertise level
+{strings.demo.filter.description}
         </Typography>
       </Box>
     </motion.div>
@@ -180,7 +181,7 @@ export default function DemoFilter({ categories, activeCategory, onCategoryChang
                   fontSize: '0.875rem'
                 }}
               >
-                {category.description || `${category.count} tutorials available`}
+{category.description || `${category.count} ${strings.demo.filter.tutorialsAvailable}`}
               </Typography>
             </Box>
 

@@ -2,6 +2,7 @@
 
 import { useTheme } from '@/context/ThemeContext';
 import { useThemeColors } from '@/hooks/useThemeColor';
+import { strings } from '@/data/strings';
 import { 
   Box, 
   Container, 
@@ -27,9 +28,9 @@ export default function StatisticsHero() {
   });
 
   const highlights = [
-    { number: '2,500+', label: 'Active Customers', icon: TrendingUp },
-    { number: '45K+', label: 'IoT Sensors', icon: Analytics },
-    { number: '99.97%', label: 'Uptime', icon: Assessment }
+    { number: '2,500+', label: strings.hero.statistics.highlights.customers, icon: TrendingUp },
+    { number: '45K+', label: strings.hero.statistics.highlights.sensors, icon: Analytics },
+    { number: '99.97%', label: strings.hero.statistics.highlights.uptime, icon: Assessment }
   ];
 
   return (
@@ -105,7 +106,7 @@ export default function StatisticsHero() {
               letterSpacing: '-0.02em'
             }}
           >
-            Statistics & Analytics
+{strings.hero.statistics.title}
           </Typography>
           
           <Typography 
@@ -117,7 +118,7 @@ export default function StatisticsHero() {
               fontSize: { xs: '1.5rem', md: '2rem' }
             }}
           >
-            Data-Driven Impact
+{strings.hero.statistics.subtitle}
           </Typography>
           
           <Typography 
@@ -130,8 +131,7 @@ export default function StatisticsHero() {
               fontWeight: 400
             }}
           >
-            Discover the measurable impact of our bio-industry solutions through comprehensive 
-            analytics, performance metrics, and growth indicators that demonstrate our commitment to excellence.
+{strings.hero.statistics.description}
           </Typography>
         </Box>
 
