@@ -9,8 +9,8 @@ const nextConfig = {
     // Enable static export for GitHub Pages
     output: 'export',
 
-    // Base path for GitHub Pages (uncomment and set your repo name if not using custom domain)
-    // basePath: '/somaticx-portfolio',
+    // Base path for GitHub Pages
+    basePath: '/WebShowcase',
 
     // Enable experimental features for better performance
     experimental: {
